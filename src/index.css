@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -34,12 +33,25 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px;
+    padding: 10px;
+    background-color: #04072D;
+}
+
+.navbox .links span{
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.navbox .links span a{
+    color: #fff;
+    font-family: 'Raleway';
 }
 
 .navbox .leftside {
-    width: 80px;
-    height: 80px;
+    flex-direction: row;
+    width: 70px;
+    height: 70px;
 }
 
 .navbox .leftside img {
@@ -144,12 +156,14 @@ h1 {
     width: 100%;
     color: #f57224;
     margin-top: 5px;
+    font-family: 'Raleway';
 }
 
 .products-container .product-card .product-price {
     width: 100%;
     margin-top: 5px;
     margin-bottom: 5px;
+    font-family: 'Raleway';
 }
 
 .products-container .product-card .addcart-btn {
@@ -162,6 +176,7 @@ h1 {
     margin-top: 5px;
     margin-bottom: 2px;
     outline: none;
+    font-family: 'Raleway';
 }
 
 /* cart */
