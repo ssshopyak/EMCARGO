@@ -44,7 +44,7 @@ export const Cart = ({ user }) => {
 
                             <div className='cart-name'>{cart.ProductName}</div>
 
-                            <div className='cart-price-orignal'>Rs {cart.ProductPrice}.00</div>
+                            <div className='cart-price-orignal'>{cart.ProductPrice} $</div>
 
                             <div className='inc' onClick={() => dispatch({ type: 'INC', id: cart.ProductID, cart })}>
                                 <Icon icon={ic_add} size={24} />
@@ -57,7 +57,7 @@ export const Cart = ({ user }) => {
                             </div>
 
                             <div className='cart-price'>
-                                Rs {cart.TotalProductPrice}.00
+                                {cart.TotalProductPrice}$
                             </div>
 
                             <button className='delete-btn' onClick={() => dispatch({ type: 'DELETE', id: cart.ProductID, cart })}>
@@ -72,7 +72,7 @@ export const Cart = ({ user }) => {
                         </div>
                         <div className='cart-summary-price'>
                             <span>Total Price</span>
-                            <span>{totalPrice}</span>
+                            <span>{totalPrice}$</span>
                         </div>
                         <div className='cart-summary-price'>
                             <span>Total Qty</span>

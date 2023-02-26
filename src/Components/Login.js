@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { auth } from '../Config/Config'
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link } from 'react-router-dom'
 
 export const Login = (props) => {
@@ -10,7 +11,8 @@ export const Login = (props) => {
 
     const login = (e) => {
         e.preventDefault();
-        auth.signInWithEmailAndPassword(email, password).then(() => {
+        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            console.log(userCredential)
             setEmail('');
             setPassword('');
             setError('');

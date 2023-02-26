@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { auth, db } from '../Config/Config'
 import { Link } from 'react-router-dom'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 
 export const Signup = (props) => {
 
@@ -10,21 +12,44 @@ export const Signup = (props) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    // try {
+    //     const docRef = await addDoc(collection(db, "SignedUpUsersData"), {
+    //         Name: name,
+    //         Email: email,
+    //         Password: password
+    //     }).then(() => {
+    //         setName('');
+    //         setEmail('');
+    //         setPassword('');
+    //         setError('');
+    //         props.history.push('/login');
+    //     })
+    //     console.log("Document written with ID: ", docRef.id);
+    //   } catch (e) {
+    //     console.error("Error adding document: ", e);
+    //   }
+
     // signup
     const signup = (e) => {
         e.preventDefault();
-        auth.createUserWithEmailAndPassword(email, password).then((cred) => {
-            db.collection('SignedUpUsersData').doc(cred.user.uid).set({
-                Name: name,
-                Email: email,
-                Password: password
-            }).then(() => {
-                setName('');
-                setEmail('');
-                setPassword('');
-                setError('');
-                props.history.push('/login');
-            }).catch(err => setError(err.message));
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            console.log(userCredential)
+            try {
+                const docRef = addDoc(collection(db, "SignedUpUsersData"), {
+                    Name: name,
+                    Email: email,
+                    Password: password
+                }).then((docRef) => {
+                    setName('');
+                    setEmail('');
+                    setPassword('');
+                    setError('');
+                    props.history.push('/login');
+                    console.log("Document written with ID: ", docRef.id);
+                })
+              } catch (e) {
+                console.error("Error adding document: ", e);
+              }
         }).catch(err => setError(err.message));
     }
 

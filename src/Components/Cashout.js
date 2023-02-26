@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { auth, db } from '../Config/Config'
+import { onAuthStateChanged } from "firebase/auth"; 
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { CartContext } from '../Global/CartContext'
 import { Navbar } from './Navbar';
 import { useHistory } from 'react-router-dom'
@@ -19,12 +21,16 @@ export const Cashout = (props) => {
     const [successMsg, setSuccessMsg] = useState('');
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                db.collection('SignedUpUsersData').doc(user.uid).onSnapshot(snapshot => {
-                    setName(snapshot.data().Name);
-                    setEmail(snapshot.data().Email);
-                })
+                const querySnapshot = getDocs(collection(db, "SignedUpUsersData")).then((querySnapsot) => {
+                    querySnapsot.forEach((doc) => {
+                        if(doc.data().Email === user.email) {
+                            setName(doc.data().Name)
+                            setEmail(doc.data().Email)
+                        }
+                      });
+                }) 
             }
             else {
                 history.push('/login')
@@ -34,26 +40,34 @@ export const Cashout = (props) => {
 
     const cashoutSubmit = (e) => {
         e.preventDefault();
-        auth.onAuthStateChanged(user => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                const date = new Date();
-                const time = date.getTime();
-                db.collection('Buyer-info ' + user.uid).doc('_' + time).set({
-                    BuyerName: name,
-                    BuyerEmail: email,
-                    BuyerCell: cell,
-                    BuyerAddress: address,
-                    BuyerPayment: totalPrice,
-                    BuyerQuantity: totalQty
-                }).then(() => {
-                    setCell('');
-                    setAddress('');
-                    dispatch({ type: 'EMPTY' })
-                    setSuccessMsg('Your order has been placed successfully. Thanks for visiting us. You will be redirected to home page after 5 seconds');
-                    setTimeout(() => {
-                        history.push('/')
-                    }, 5000)
-                }).catch(err => setError(err.message))
+                const ProductsNames = shoppingCart.map((shopping)=>{
+                    return shopping.ProductName
+                })
+                const date = new Date().toLocaleDateString()
+                try {
+                    const docRef = addDoc(collection(db, 'Buyer-info-' + user.uid + '/' + date), {
+                        BuyerName: name,
+                        BuyerEmail: email,
+                        BuyerCell: cell,
+                        BuyerAddress: address,
+                        BuyerPayment: totalPrice,
+                        BuyerQuantity: totalQty,
+                        BuyerGoods: ProductsNames,
+                    }).then((docRef) => {
+                        console.log(shoppingCart)
+                        setCell('');
+                        setAddress('');
+                        dispatch({ type: 'EMPTY' })
+                        setSuccessMsg('Your order has been placed successfully. Thanks for visiting us. You will be redirected to home page after 5 seconds');
+                        setTimeout(() => {
+                            history.push('/')
+                        }, 5000)
+                    })
+                  } catch (e) {
+                    console.error("Error adding document: ", e);
+                  }
             }
         })
     }

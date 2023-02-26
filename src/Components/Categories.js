@@ -25,7 +25,7 @@ export const Products = ({user}) => {
                 {products.map(product => (
                     <div className='product-card' key={product.ProductID} onClick={addToCart}>
                         <div className='product-img'>
-                            <img src={product.ProductImg[0]} alt="not found" />
+                            <img src={product.ProductImg} alt="not found" />
                         </div>
                         <div className='product-name'>
                             {product.ProductName}

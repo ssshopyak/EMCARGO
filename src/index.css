@@ -31,20 +31,24 @@ body {
 /* navbar */
 .navbox {
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    position: fixed;
+    justify-content: space-around;
     align-items: center;
     padding: 10px;
-    background-color: #04072D;
+    background-color: #FEFEFE;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);
 }
 
 .navbox .links span{
     margin-left: 10px;
     margin-right: 10px;
-    color: #fff;
+    color: #010207;
+    font-size: 16px;
 }
 
 .navbox .links span a{
-    color: #fff;
+    color: #010207;
     font-family: 'Raleway';
 }
 
@@ -55,7 +59,6 @@ body {
 }
 
 .navbox .leftside img {
-    width: 100%;
     height: 100%;
 }
 
@@ -102,21 +105,116 @@ body {
     border: hidden;
     background-color: #2eca8b;
     margin-left: 10px;
+    font-family: 'Raleway';
+}
+
+.rightside button{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.navboxMobile {
+    display: flex;
+    width: 100%;
+    position: fixed;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #FEFEFE;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);
+}
+
+.navboxMobile .leftside {
+    flex-direction: row;
+    width: 70px;
+    height: 70px;
+}
+
+.navboxMobile .leftside img {
+    height: 100%;
+}
+
+.navboxMobile .rightside {
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+}
+
+.navDropDownMenu {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    right: 0;
+    top: 89px;
+    background-color: #fef7e5;
+    width: 100vw;
+    height: calc(100vh - 89px)
+}
+
+@keyframes openMenu {
+    from {
+        right: -500px;
+    } to {
+        right: 0px
+    }
+}
+
+@keyframes closeMenu {
+    from {
+        right: 0px
+    } to {
+        right: -500px;
+    }
+}
+
+/* shopnow */
+.shopnow {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../src/images/background.png');
+    background-position: center;
+    background-size: cover;
+}
+
+.shopnow .textContainer .title {
+    margin-left: 150px;
+    margin-bottom: 24px;
+    white-space: pre-line;
+    font-size: 60px;
+    color: #FFFFFF;
+    font-family: 'Raleway';
+    line-height: 80px;
+    font-weight: 600;
+}
+
+.shopnow .bodytext {
+    margin-bottom: 40px;
+    margin-left: 150px;
+    white-space: pre-line;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 28px;
+    color: #AFAFBE;
+}
+
+
+@media(max-width: 668px) {
+    .shopnow .textContainer .title {
+        font-size: 40px;
+        margin-top: 100px;
+        line-height: 50px;
+    }
+    .shopnow .textContainer div {
+        margin-left: 25px !important;
+    }
 }
 
 /* products */
-
-h1 {
-    padding: 30px;
-    border-bottom: 1px solid #e4e4e4;
-}
-
-@media(max-width: 768px) {
-    h1 {
-        text-align: center;
-        padding: 10px;
-    }
-}
 
 .products-container {
     display: flex;
@@ -138,7 +236,16 @@ h1 {
     font-weight: 600;
     text-align: center;
     box-shadow: 5px 5px 4px #e4e4e4;
-    position: relative;
+    transition-duration: 0.5s;
+}
+
+.products-container .product-card:hover {
+    transform: scale(110%);
+}
+
+.products-container .product-card:active {
+    transform: scale(100%);
+    box-shadow: 9px 9px 7px #e4e4e4;
 }
 
 .products-container .product-card .product-img {
@@ -318,4 +425,38 @@ h1 {
 
 .success-msg .home-link {
     color: #fff;
+}
+
+/* adminPanel */
+
+.addProducts {
+    margin-top: 50px;
+    font-family: 'Raleway';
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.addProducts .inputContainer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.addProducts .inputContainer input {
+    border: 1px solid #e4e4e4;
+    padding: 5px;
+}
+.addProducts .inputContainer select {
+    border: 1px solid #e4e4e4;
+    padding: 5px;
+}
+.addProducts .inputContainer textarea {
+    border: 1px solid #e4e4e4;
+    padding: 5px;
 }

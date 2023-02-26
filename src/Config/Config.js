@@ -1,8 +1,7 @@
-import * as firebase from 'firebase'
-
-import 'firebase/storage';
-import 'firebase/firestore';
-import 'firebase/auth'
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAWq7YqYtih602HrEnWLQLFEBrlgTI-pZg",
@@ -15,10 +14,25 @@ const firebaseConfig = {
   measurementId: "G-B9JGBQ0TB7"
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
+async function uploadImage(image) {
+  const storageRef = ref(storage, `/product-images/${Date.now()}-${image.name}`);
 
-export { auth, db, storage }
+  const response = await uploadBytes(storageRef, image);
+  const url = await getDownloadURL(response.ref);
+  return url;
+};
+
+async function uploadImages(images) {
+  const imagePromises = Array.from(images, (image) => uploadImage(image));
+
+  const imageRes = await Promise.all(imagePromises);
+  return imageRes; // list of url like ["https://..", ...]
+};
+
+
+export { auth, db, storage, uploadImages}
