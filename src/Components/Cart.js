@@ -26,7 +26,7 @@ export const Cart = ({ user }) => {
                             <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center',height:'100vh'}}>
                                 <div style={{color:"#fff", fontFamily:'Raleway', alignSelf:'center',textAlign: 'center', marginBottom:'15px'}}>No items in your cart or slow internet causing trouble (Refresh the page) or you are not logged in</div>
                                 <Button 
-                                    onClick={()=>{history.push('/');}}
+                                    onClick={()=>{history.push('/test');}}
                                     title={'Return to Home page'}
                                     backgroundColor={'#F16A28'}
                                     padding={'5px 10px 5px 10px'}

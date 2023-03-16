@@ -53,9 +53,9 @@ const App = () => {
         <PayPalScriptProvider options={{ "client-id": "AVN76x7JXFPKeEVryg729X9JIi04E8nA2WdrD607i8yyTnR-XYkZxRBRj6CgCfMP3gJ50lluHQQw4WQp", currency: 'USD' }}>
         <ProductsContextProvider>
             <CartContextProvider>
-                <BrowserRouter>
+                <BrowserRouter basename='/test'>
                     <Switch>
-                        <Route exact path='/' component={() => <Home user={user} />} />
+                        <Route exact path='/test' component={() => <Home user={user} />} />
                         <Route path="/signup" component={Signup} />
                         <Route path="/login" component={Login} />
                         <Route path="/cartproducts" component={() => <Cart user={user} />} />

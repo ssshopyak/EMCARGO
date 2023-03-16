@@ -16,7 +16,7 @@ export const Login = (props) => {
             setEmail('');
             setPassword('');
             if (userCredential.user.emailVerified) {
-                props.history.push('/');
+                props.history.push('/test');
                 setTimeout(() => {
                     props.history.go(0)
                 },500) 
