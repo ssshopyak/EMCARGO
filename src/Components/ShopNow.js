@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from './Button'
 
 export const ShopNow = () => {
@@ -12,7 +13,19 @@ export const ShopNow = () => {
                     {"Find everything for your truck right here. You can buy directly in our\n website or just call us! Find everything for your truck right here."}
                 </div>
                 <div style={{marginLeft:145}}>
-                    <Button onClick={()=>{console.log('123')}} title={'Shop now'} padding={'10px 60px 10px 60px'} color={'#FFF'} backgroundColor={'#F16A28'}/>
+                    <Link
+                        to={{
+                            pathname:'/category',
+                            state: { Category: null }
+                        }}>
+                        <Button 
+                            onClick={()=>{console.log('123')}} 
+                            title={'Shop now'} 
+                            padding={'10px 60px 10px 60px'} 
+                            color={'#000'} 
+                            backgroundColor={'#fff'}/>
+                    </Link>
+                    
                 </div>
                 
             </div>

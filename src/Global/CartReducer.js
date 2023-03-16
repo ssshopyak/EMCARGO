@@ -18,7 +18,7 @@ export const CartReducer = (state, action) => {
 
             const check = shoppingCart.find(product => product.ProductID === action.id);
             if (check) {
-                toast.error('this product is already in your cart', {
+                toast.error('This product is already in your cart', {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -30,6 +30,15 @@ export const CartReducer = (state, action) => {
                 return state;
             }
             else {
+                toast.success('Successfully added to your cart', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                })
                 product = action.product;
                 product['qty'] = 1;
                 product['TotalProductPrice'] = product.ProductPrice * product.qty;

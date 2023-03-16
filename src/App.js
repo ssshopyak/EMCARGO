@@ -1,4 +1,4 @@
-import React, { setState, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ProductsContextProvider } from './Global/ProductsContext'
 import { Home } from './Components/Home'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -12,49 +12,67 @@ import { CartContextProvider } from './Global/CartContext'
 import { Cart } from './Components/Cart'
 import { AddProducts } from './Components/AddProducts'
 import { Cashout } from './Components/Cashout'
+import Orders from './Components/Orders'
+import ProductDetails from './Components/ProductDetailed'
+import ProductsCategory from './Components/ProductsCategory'
+import Personal from './Components/Personal'
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { StoreRegulation } from './Components/StoreRegulation'
 
 
 const App = () => {
     const [user, setUser] = useState(null)
+    const [userUID, setUserUid] = useState('')
+    let userCheck = null
+
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
+            userCheck = user
             if (user) {
-                const querySnapshot = getDocs(collection(db, "SignedUpUsersData")).then((querySnapsot) => {
-                    querySnapsot.forEach((doc) => {
-                        if(doc.data().Email === user.email) {
-                            setUser(doc.data().Name)
-                        }
-                    });
-                })   
+                console.log(user.emailVerified)
+                if(user.emailVerified){
+                    setUserUid(user.uid)
+                    const querySnapshot = getDocs(collection(db, "SignedUpUsersData")).then((querySnapsot) => {
+                        querySnapsot.forEach((doc) => {
+                            if(doc.data().Email === user.email) {
+                                setUser(doc.data().Name)
+                            }
+                        });
+                    })   
+                } else {
+                    console.log('Pleace verify your account')
+                }
             }
             else {
                 setUser(null)
             }
         })
-    },[]) 
-        return (
-            <ProductsContextProvider>
-                <CartContextProvider>
-                    <BrowserRouter>
-                        <Switch>
-                            {/* home */}
-                            <Route exact path='/' component={() => <Home user={user} />} />
-                            {/* signup */}
-                            <Route path="/signup" component={Signup} />
-                            {/* login */}
-                            <Route path="/login" component={Login} />
-                            {/* cart products */}
-                            <Route path="/cartproducts" component={() => <Cart user={user} />} />
-                            {/* add products */}
-                            <Route path="/addproducts" component={AddProducts} />
-                            {/* cashout */}
-                            <Route path='/cashout' component={() => <Cashout user={user} />} />
-                            <Route component={NotFound} />
-                        </Switch>
-                    </BrowserRouter>
-                </CartContextProvider>
-            </ProductsContextProvider>
-        )
+    },[userCheck])
+
+    return (
+        <PayPalScriptProvider options={{ "client-id": "AVN76x7JXFPKeEVryg729X9JIi04E8nA2WdrD607i8yyTnR-XYkZxRBRj6CgCfMP3gJ50lluHQQw4WQp", currency: 'USD' }}>
+        <ProductsContextProvider>
+            <CartContextProvider>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path='/' component={() => <Home user={user} />} />
+                        <Route path="/signup" component={Signup} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/cartproducts" component={() => <Cart user={user} />} />
+                        <Route path="/addproducts" component={AddProducts} />
+                        <Route path='/category' component={() => <ProductsCategory user={user} />} />
+                        <Route path='/cashout' component={() => <Cashout user={user} />} />
+                        <Route path='/detailed' component={()=> <ProductDetails user={user}/>}/>
+                        <Route path='/orders' component={() => <Orders user={user} userUid={userUID}/>} />
+                        <Route path='/personal' component={() => <Personal user={user}/> } />
+                        <Route path='/regulation' component={() => <StoreRegulation user={user}/>} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </BrowserRouter>
+            </CartContextProvider>
+        </ProductsContextProvider>
+        </PayPalScriptProvider>
+    )
 }
 
 

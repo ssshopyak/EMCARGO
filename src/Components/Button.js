@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Button = ({ onClick,title, color, backgroundColor, padding, fontSize='16px', border='hidden' }) => {
+export const Button = ({ onClick,title, color, backgroundColor, padding, fontSize='16px', border='hidden', type='' }) => {
     const mystyle = {
         padding: padding,  // top, right, bottom, left
         color: color,
@@ -14,6 +14,6 @@ export const Button = ({ onClick,title, color, backgroundColor, padding, fontSiz
         border: border
       };
     return (
-        <button onClick={onClick} style={mystyle}>{title}</button>
+        <button type={type} onClick={onClick} style={mystyle}>{title}</button>
     )
 }

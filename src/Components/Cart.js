@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { CartContext } from '../Global/CartContext'
 import { Navbar } from './Navbar';
 import { Icon } from 'react-icons-kit'
@@ -7,7 +7,7 @@ import { ic_remove } from 'react-icons-kit/md/ic_remove'
 import { iosTrashOutline } from 'react-icons-kit/ionicons/iosTrashOutline'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
-import { auth } from '../Config/Config'
+import { Button } from './Button';
 
 export const Cart = ({ user }) => {
 
@@ -15,75 +15,76 @@ export const Cart = ({ user }) => {
 
     const history = useHistory();
 
-    useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (!user) {
-                history.push('/login');
-            }
-        })
-    })
-
     return (
         <>
             <Navbar user={user} />
             <>
-                {shoppingCart.length !== 0 && <h1>Cart</h1>}
                 <div className='cart-container'>
+                    
                     {
-                        shoppingCart.length === 0 && <>
-                            <div>no items in your cart or slow internet causing trouble (Refresh the page) or you are not logged in</div>
-                            <div><Link to="/">Return to Home page</Link></div>
-                        </>
+                        shoppingCart.length === 0 &&
+                            <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center',height:'100vh'}}>
+                                <div style={{color:"#fff", fontFamily:'Raleway', alignSelf:'center',textAlign: 'center', marginBottom:'15px'}}>No items in your cart or slow internet causing trouble (Refresh the page) or you are not logged in</div>
+                                <Button 
+                                    onClick={()=>{history.push('/');}}
+                                    title={'Return to Home page'}
+                                    backgroundColor={'#F16A28'}
+                                    padding={'5px 10px 5px 10px'}
+                                    color={'#fff'} 
+                                    border={'1px solid #F16A28'}
+                                />
+                            </div>
                     }
+                    <div style={{marginTop:'89px', display:'flex', flexDirection:'column', alignItems:'center'}}>
                     {shoppingCart && shoppingCart.map(cart => (
                         <div className='cart-card' key={cart.ProductID}>
-
                             <div className='cart-img'>
                                 <img src={cart.ProductImg} alt="not found" />
                             </div>
-
-                            <div className='cart-name'>{cart.ProductName}</div>
-
-                            <div className='cart-price-orignal'>{cart.ProductPrice} $</div>
-
-                            <div className='inc' onClick={() => dispatch({ type: 'INC', id: cart.ProductID, cart })}>
-                                <Icon icon={ic_add} size={24} />
-                            </div>
-
-                            <div className='quantity'>{cart.qty}</div>
-
-                            <div className='dec' onClick={() => dispatch({ type: 'DEC', id: cart.ProductID, cart })}>
-                                <Icon icon={ic_remove} size={24} />
-                            </div>
-
-                            <div className='cart-price'>
-                                {cart.TotalProductPrice}$
-                            </div>
-
-                            <button className='delete-btn' onClick={() => dispatch({ type: 'DELETE', id: cart.ProductID, cart })}>
-                                <Icon icon={iosTrashOutline} size={24} />
-                            </button>
+                                <div className='cart-name'>{cart.ProductName}</div>
+                                <div className='changeCount'>
+                                    <div className='inc' style={{color:'#F16A28'}} onClick={() => dispatch({ type: 'INC', id: cart.ProductID, cart })}>
+                                        <Icon icon={ic_add} size={24} />
+                                    </div>
+                                    <div className='quantity' style={{color:'#FFF', textAlign:'center'}}>{cart.qty}</div>
+                                    <div className='dec' style={{color:'#F16A28'}} onClick={() => dispatch({ type: 'DEC', id: cart.ProductID, cart })}>
+                                        <Icon icon={ic_remove} size={24} />
+                                    </div>
+                                </div>
+                                <div className='cart-price'>
+                                    ${cart.TotalProductPrice}
+                                </div>
+                                <button className='delete-btn' style={{color:'#F16A28'}} onClick={() => dispatch({ type: 'DELETE', id: cart.ProductID, cart })}>
+                                    <Icon icon={iosTrashOutline} size={24} />
+                                </button>
                         </div>
                     ))
                     }
-                    {shoppingCart.length > 0 && <div className='cart-summary'>
-                        <div className='cart-summary-heading'>
-                            Cart-Summary
+                    {shoppingCart.length > 0 && 
+                        <div className='cart-summary'>
+                            <div className='cart-summary-heading' style={{color:'#fff'}}>
+                                Cart-Summary
+                            </div>
+                            <div className='cart-summary-price'>
+                                <span style={{color:'#fff'}}>Total Price</span>
+                                <span style={{color:'#fff'}}>${totalPrice.toFixed(2)}</span>
+                            </div>
+                            <div className='cart-summary-price'>
+                                <span style={{color:'#fff'}}>Total Qty</span>
+                                <span style={{color:'#fff'}}>{totalQty}</span>
+                            </div>
+                            <div style={{marginTop:'15px',display:'flex', justifyContent:'center'}}>
+                            <Button 
+                                    onClick={()=>{history.push('/cashout')}}
+                                    title={'Cash on delivery'}
+                                    backgroundColor={'#F16A28'}
+                                    padding={'5px 20px 5px 20px'}
+                                    border={'1px solid #F16A28'}
+                                    color={'#fff'}/>
+                            </div>       
                         </div>
-                        <div className='cart-summary-price'>
-                            <span>Total Price</span>
-                            <span>{totalPrice}$</span>
-                        </div>
-                        <div className='cart-summary-price'>
-                            <span>Total Qty</span>
-                            <span>{totalQty}</span>
-                        </div>
-                        <Link to='cashout' className='cashout-link'>
-                            <button className='btn btn-success btn-md' style={{ marginTop: 5 + 'px' }}>
-                                Cash on delivery
-                        </button>
-                        </Link>
-                    </div>}
+                    }
+                    </div>
                 </div>
             </>
         </>

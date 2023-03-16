@@ -35,6 +35,7 @@ export const AddProducts = () => {
         uploadImages(productImg).then((res)=>{
             try {
                 const docRef = addDoc(collection(db, "Products"), {
+                    ProductID: new Date().toLocaleDateString('ua-UA').split('.').join('') + new Date().getHours().toString().padStart(2, '0') + new Date().getMinutes().toString().padStart(2, '0') + new Date().getSeconds().toString().padStart(2, '0'),
                     ProductName: productName,
                     ProductPrice: Number(productPrice),
                     ProductCategory: category,
@@ -85,6 +86,7 @@ export const AddProducts = () => {
                     <input
                         type="file"
                         className='input'
+                        accept="image/*"
                         id="file"
                         required
                         multiple
