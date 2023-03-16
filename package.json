@@ -1,6 +1,7 @@
 {
   "name": "ecommerce-with-react",
   "version": "0.1.0",
+  "homepage": "https://ssshopyak.github.io/emcargo",
   "private": true,
   "dependencies": {
     "@paypal/react-paypal-js": "^7.8.2",
@@ -11,6 +12,7 @@
     "firebase": "9.17.1",
     "framer-motion": "^2.6.12",
     "get-google-fonts": "^1.2.2",
+    "gh-pages": "^5.0.0",
     "jquery": "^3.6.4",
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
