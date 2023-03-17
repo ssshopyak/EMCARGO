@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../index.css'
 import customer from '../images/support.png'
 import location from '../images/location.png'
@@ -7,7 +7,21 @@ import delivery from '../images/tracking.png'
 import guaranteed from '../images/guarantee.png'
 import wallet from '../images/wallet.png'
 import { Link } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../Config/Config'
 export const Footer = () => {
+
+    const [isAdmin, setIsAdmin] = useState(false)
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if(user.email === 'ostap.shopyak@gmail.com'){
+                    setIsAdmin(true)
+                }
+            }
+        })
+    },[])
+
     return (
         <div className='footer'>
             <div className='footerContainers'>
@@ -48,7 +62,8 @@ export const Footer = () => {
                 </div>
                 <div style={{display:'flex', flexDirection:'column', marginTop:'20px'}}>
                     <h2 style={{color:'#f16a28'}}>My Account</h2>
-                    <Link to="/orders" style={{color:'#fff'}}>My Orders (Track shipment)</Link>        
+                    <Link to="/orders" style={{color:'#fff'}}>My Orders (Track shipment)</Link>  
+                    { isAdmin && <Link style={{color:'#fff'}} to="/addproducts">Add Products</Link>}
                     <Link to="/personal" style={{color:'#fff'}}>My personal info</Link>
                     <Link 
                         to={{

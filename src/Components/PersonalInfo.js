@@ -94,7 +94,7 @@ export const PersonalInfo = ({title}) => {
                         dispatch({ type: 'EMPTY' })
                         toShowSuccess('Your order has been placed successfully. Thanks for visiting us. You will be redirected to home page after 5 seconds');
                         setTimeout(() => {
-                            history.push('/test')
+                            history.push('/')
                         }, 5000)
                     })
                   } catch (e) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ProductsContextProvider } from './Global/ProductsContext'
 import { Home } from './Components/Home'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter , Switch, Route } from 'react-router-dom'
 import { Signup } from './Components/Signup'
 import { Login } from './Components/Login'
 import { NotFound } from './Components/NotFound'
@@ -23,6 +23,7 @@ import { StoreRegulation } from './Components/StoreRegulation'
 const App = () => {
     const [user, setUser] = useState(null)
     const [userUID, setUserUid] = useState('')
+    const [isAdmin, setIsAdmin] = useState(false)
     let userCheck = null
 
     useEffect(()=>{
@@ -31,6 +32,9 @@ const App = () => {
             if (user) {
                 console.log(user.emailVerified)
                 if(user.emailVerified){
+                    if(user.email === 'ostap.shopyak@gmail.com' ) {
+                        setIsAdmin(true)
+                    }
                     setUserUid(user.uid)
                     const querySnapshot = getDocs(collection(db, "SignedUpUsersData")).then((querySnapsot) => {
                         querySnapsot.forEach((doc) => {
@@ -53,13 +57,13 @@ const App = () => {
         <PayPalScriptProvider options={{ "client-id": "AVN76x7JXFPKeEVryg729X9JIi04E8nA2WdrD607i8yyTnR-XYkZxRBRj6CgCfMP3gJ50lluHQQw4WQp", currency: 'USD' }}>
         <ProductsContextProvider>
             <CartContextProvider>
-                <BrowserRouter basename='/test'>
+                <HashRouter  basename='/'>
                     <Switch>
-                        <Route exact path='/test' component={() => <Home user={user} />} />
+                        <Route exact path='/' component={() => <Home user={user} />} />
                         <Route path="/signup" component={Signup} />
                         <Route path="/login" component={Login} />
                         <Route path="/cartproducts" component={() => <Cart user={user} />} />
-                        <Route path="/addproducts" component={AddProducts} />
+                        {isAdmin && <Route path="/addproducts" component={AddProducts} />}
                         <Route path='/category' component={() => <ProductsCategory user={user} />} />
                         <Route path='/cashout' component={() => <Cashout user={user} />} />
                         <Route path='/detailed' component={()=> <ProductDetails user={user}/>}/>
@@ -68,7 +72,7 @@ const App = () => {
                         <Route path='/regulation' component={() => <StoreRegulation user={user}/>} />
                         <Route component={NotFound} />
                     </Switch>
-                </BrowserRouter>
+                </HashRouter >
             </CartContextProvider>
         </ProductsContextProvider>
         </PayPalScriptProvider>
