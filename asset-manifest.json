@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/emcargo/static/css/main.9620fc95.chunk.css",
+    "main.css": "/emcargo/static/css/main.26982a02.chunk.css",
     "main.js": "/emcargo/static/js/main.ca04dd4d.chunk.js",
     "main.js.map": "/emcargo/static/js/main.ca04dd4d.chunk.js.map",
     "runtime-main.js": "/emcargo/static/js/runtime-main.febdc795.js",
@@ -9,10 +9,10 @@
     "static/js/2.304c95b8.chunk.js": "/emcargo/static/js/2.304c95b8.chunk.js",
     "static/js/2.304c95b8.chunk.js.map": "/emcargo/static/js/2.304c95b8.chunk.js.map",
     "index.html": "/emcargo/index.html",
-    "precache-manifest.6aa64c86745c710fcc9e8c023fa54309.js": "/emcargo/precache-manifest.6aa64c86745c710fcc9e8c023fa54309.js",
+    "precache-manifest.4cb5658f43b324ba7a730bdbf97adc68.js": "/emcargo/precache-manifest.4cb5658f43b324ba7a730bdbf97adc68.js",
     "service-worker.js": "/emcargo/service-worker.js",
     "static/css/2.8e3458e0.chunk.css.map": "/emcargo/static/css/2.8e3458e0.chunk.css.map",
-    "static/css/main.9620fc95.chunk.css.map": "/emcargo/static/css/main.9620fc95.chunk.css.map",
+    "static/css/main.26982a02.chunk.css.map": "/emcargo/static/css/main.26982a02.chunk.css.map",
     "static/js/2.304c95b8.chunk.js.LICENSE.txt": "/emcargo/static/js/2.304c95b8.chunk.js.LICENSE.txt",
     "static/js/main.ca04dd4d.chunk.js.LICENSE.txt": "/emcargo/static/js/main.ca04dd4d.chunk.js.LICENSE.txt",
     "static/media/index.css": "/emcargo/static/media/backgroundMobile.33d70418.jpg",
@@ -28,7 +28,7 @@
     "static/js/runtime-main.febdc795.js",
     "static/css/2.8e3458e0.chunk.css",
     "static/js/2.304c95b8.chunk.js",
-    "static/css/main.9620fc95.chunk.css",
+    "static/css/main.26982a02.chunk.css",
     "static/js/main.ca04dd4d.chunk.js"
   ]
 }
