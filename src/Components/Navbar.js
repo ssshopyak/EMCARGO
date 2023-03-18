@@ -6,17 +6,29 @@ import { Link } from 'react-router-dom'
 import { auth } from '../Config/Config'
 import { Icon } from 'react-icons-kit'
 import { cart } from 'react-icons-kit/entypo/cart'
+import down from '../images/down.png'
 import { useHistory } from 'react-router-dom'
 import { CartContext } from '../Global/CartContext'
 import { Button } from './Button'
 import useScreenType from "react-screentype-hook";
+import { db } from '../Config/Config'
+import { collection, getDocs, } from "firebase/firestore";
 
 export const Navbar = ({ user }) => {
+    const [data, setData] = useState([])
     const [isMobile,setIsMobile] = useState(false)
     const [isMenuOpen,setIsMenuOpen] = useState(false)
     const [isMenuOpenStyle,setIsMenuOpenStyle] = useState(false)
+    const [selectedCategory, setSelectedCategory] = useState(null)
+    const [isSelectedCategoryOpen, setIsSelectedCategoryOpen] = useState(false)
+    const [subSelectedCategory, setSubSelectedCategory] = useState(null)
+    const [isSubSelectedCategoryOpen, setIsSubSelectedCategoryOpen] = useState(false)
+
+    const [categoryList, setCategoryList] = useState([])
+
     const history = useHistory();
     const { totalQty } = useContext(CartContext);
+
     const mountedStyle = {
         animation: "openMenu 1s",
         color: '#fff',
@@ -29,19 +41,37 @@ export const Navbar = ({ user }) => {
         fontFamily: 'Raleway',
         fontSize: '18px',
       };
+
     const screenType = useScreenType({
         mobile: 1000,
         tablet: 1100,
         desktop: 1200,
         largeDesktop: 1600,
     });
+
+    useEffect(()=>{
+        const querySnapshot = getDocs(collection(db, 'Categories')).then((querySnapsot) => {
+            querySnapsot.forEach((doc) => {
+                setData((prev)=> [...prev, Object.values(doc.data())])
+              });
+        })
+        const querySnapsotCategories = getDocs(collection(db, 'CategoriesForNavBar')).then((querySnapsot) => {
+            querySnapsot.forEach((doc) => {
+                if(doc.id === 'categories'){ 
+                    setCategoryList((prev) => [...prev, doc.data().data])
+                }
+                
+              });
+        })
+    },[]) 
+
     useEffect(()=>{
         if (screenType.isMobile || screenType.isTablet) {
             setIsMobile(true)
         } else {
             setIsMobile(false)
         }
-    },[screenType]) 
+    },[screenType])
     // handle logout
     const handleLogout = () => {
         auth.signOut().then(() => {
@@ -68,79 +98,105 @@ export const Navbar = ({ user }) => {
                     <img src={menu} alt="" onClick={handleOpenMenu}/>
                 </div>
                 { isMenuOpen &&
-                <div className='navDropDownMenu' style={isMenuOpenStyle ? mountedStyle : unmountedStyle}>           
-                    <span>
-                        <Link
-                            onClick={handleOpenMenu} 
-                            to={{
-                                pathname:'/category',
-                                state: { Category: 'Kenworth' }
-                            }}
-                            className='navlink' 
-                            style={{color: '#fff'}}>
-                            Kenworth
-                        </Link>
-                    </span>
-                    <span>
-                        <Link
-                            onClick={handleOpenMenu}  
-                            to={{
-                                pathname:'/category',
-                                state: { Category: 'Volvo' }
-                            }}
-                            className='navlink' 
-                            style={{color: '#fff'}}>
-                            Volvo
-                        </Link>
-                    </span>
-                    <span>
-                        <Link 
-                            onClick={handleOpenMenu} 
-                            to={{
-                                pathname:'/category',
-                                state: { Category: 'DearGuards' }
-                            }}
-                            className='navlink' 
-                            style={{color: '#fff'}}>
-                            Dear Guards
-                        </Link>
-                    </span>
-                    <span>
-                        <Link 
-                            onClick={handleOpenMenu} 
-                            to={{
-                                pathname:'/category',
-                                state: { Category: 'Freightliner' }
-                            }}
-                            className='navlink' 
-                            style={{color: '#fff'}}>
-                            Freightliner
-                        </Link>
-                    </span>
-                    <span>
-                        <Link 
-                            onClick={handleOpenMenu} 
-                            to={{
-                                pathname:'/category',
-                                state: { Category: 'Peterbilt' }
-                            }}
-                            className='navlink' 
-                            style={{color: '#fff'}}>
-                            Peterbilt
-                        </Link>
-                    </span>
-                    <span>
-                        <Link 
-                            onClick={handleOpenMenu}
-                            to={{
-                                pathname:'/category',
-                                state: { Category: null }
-                            }}
-                            className='navlink' 
-                            style={{color: '#fff'}}>
-                            All Products
-                        </Link>
-                    </span>
+                <div className='navDropDownMenu' style={isMenuOpenStyle ? mountedStyle : unmountedStyle}>
+                    <div className='links' style={{display:'flex', flexDirection:'column'}}>
+                        {categoryList[0]?.map((category) => {
+                            return (
+                                <span
+                                    key={category}>
+                                    <div>
+                                        <Link
+                                            onClick={handleOpenMenu}  
+                                            to={{
+                                                pathname:'/category',
+                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null }
+                                            }}
+                                            className='navlink' 
+                                            style={{color: '#fff'}}>
+                                            {category}
+                                        </Link>
+                                        <img 
+                                            src={down}
+                                            alt='v'
+                                            style={{
+                                                transition: "transform .5s",
+                                                width:'18px',
+                                                marginLeft:'5px',
+                                                transform: isSelectedCategoryOpen & selectedCategory === category ? "rotate(0deg)" : "rotate(90deg)"
+                                            }}
+                                            onClick={()=>{
+                                                setIsSelectedCategoryOpen(!isSelectedCategoryOpen)
+                                                setSelectedCategory(category)
+                                            }}
+                                        />
+                                    </div>
+                                    { selectedCategory === category & isSelectedCategoryOpen ? (
+                                        <div
+                                            style={{backgroundColor:'#000', display:'flex', flexDirection:'column'}}>
+                                            {data.map((menu) => {
+                                                return(
+                                                    menu.map((element) => {
+                                                        if ( element.id === selectedCategory) {
+                                                            return (
+                                                                <>
+                                                                    <span key={element.uid} style={{ color: "#fff",}}>
+                                                                        <Link
+                                                                            style={{ color: "#fff",}}
+                                                                            to={{
+                                                                                pathname:'/category',
+                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid }
+                                                                            }}
+                                                                        >
+                                                                            {element.uid}
+                                                                        </Link>
+                                                                        {element.data.length > 1 &&
+                                                                            <img
+                                                                                src={down}
+                                                                                alt='v'
+                                                                                style={{
+                                                                                    transition: "transform .5s",
+                                                                                    width: '18px',
+                                                                                    marginLeft: '5px',
+                                                                                    transform: isSubSelectedCategoryOpen & subSelectedCategory === element.uid ? "rotate(0deg)" : "rotate(90deg)"
+                                                                                }}
+                                                                                onClick={() => {
+                                                                                    setIsSubSelectedCategoryOpen(!isSubSelectedCategoryOpen)
+                                                                                    setSubSelectedCategory(element.uid)
+                                                                                } } />}
+                                                                    </span>
+                                                                    {element.data.length > 1 & isSubSelectedCategoryOpen & subSelectedCategory === element.uid ? (
+                                                                        <div style={{display:'flex', flexDirection:'column'}}>
+                                                                            {element.data.map((subCategory) => {
+                                                                                return(
+                                                                                    <span style={{ color: "#fff" }} key={subCategory}>
+                                                                                        <Link
+                                                                                            style={{ color: "#F16A28" }} 
+                                                                                            to={{
+                                                                                                pathname:'/category',
+                                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid }
+                                                                                            }}
+                                                                                        >
+                                                                                            {subCategory}
+                                                                                        </Link>
+                                                                                    </span>
+                                                                                )
+                                                                            })}
+                                                                        </div>
+                                                                        ) : null
+                                                                    }
+                                                                </>
+                                                            )
+                                                        } 
+                                                    })
+                                                )
+                                            })}
+                                        </div>
+                                        ) : null
+                                    }
+                                </span>
+                            )
+                        })}
+                    </div>   
                     {!user ? 
                     (
                         <div style={{display:'flex', flexDirection:'row', justifyContent:"space-around", width:'60%', marginTop:'15px'}}>
@@ -188,80 +244,105 @@ export const Navbar = ({ user }) => {
         <div className='navbox'>
             <div className='leftside'>
                 <Link to="/"><img src={logo} alt="" /></Link>
+                <span onClick={()=>{
+                    console.log(categoryList)
+                }}>X</span>
             </div>
-            <div className='links'>
-                <span>
-                    <Link
-                        onClick={handleOpenMenu}  
-                        to={{
-                            pathname:'/category',
-                            state: { Category: 'Kenworth' }
-                        }}
-                        className='navlink' 
-                        style={{color: '#fff'}}>
-                        Kenworth
-                    </Link>
-                </span>
-                <span>
-                    <Link
-                        onClick={handleOpenMenu}  
-                        to={{
-                            pathname:'/category',
-                            state: { Category: 'Volvo' }
-                        }}
-                        className='navlink' 
-                        style={{color: '#fff'}}>
-                        Volvo
-                    </Link>
-                </span>
-                <span>
-                    <Link 
-                        onClick={handleOpenMenu} 
-                        to={{
-                            pathname:'/category',
-                            state: { Category: 'DearGuards' }
-                        }}
-                        className='navlink' 
-                        style={{color: '#fff'}}>
-                        Dear Guards
-                    </Link>
-                </span>
-                <span>
-                    <Link 
-                        onClick={handleOpenMenu} 
-                        to={{
-                            pathname:'/category',
-                            state: { Category: 'Freightliner' }
-                        }}
-                        className='navlink' 
-                        style={{color: '#fff'}}>
-                        Freightliner
-                    </Link>
-                </span>
-                <span>
-                    <Link 
-                        onClick={handleOpenMenu} 
-                        to={{
-                            pathname:'/category',
-                            state: { Category: 'Peterbilt' }
-                        }}
-                        className='navlink' 
-                        style={{color: '#fff'}}>
-                        Peterbilt
-                    </Link>
-                </span>
-                <span>
-                    <Link 
-                        onClick={handleOpenMenu} 
-                        to={{
-                            pathname:'/category',
-                            state: { Category: null }
-                        }}
-                        className='navlink' 
-                        style={{color: '#fff'}}>
-                        All Products
-                    </Link>
-                </span>
+            <div className='links' style={{display:'flex', flexDirection:'row'}}>
+                {categoryList[0]?.map((category) => {
+                    return (
+                        <span
+                            key={category}>
+                            <div>
+                                <Link
+                                    onClick={handleOpenMenu}  
+                                    to={{
+                                        pathname:'/category',
+                                        state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null }
+                                    }}
+                                    className='navlink' 
+                                    style={{color: '#fff'}}>
+                                    {category}
+                                </Link>
+                                <img 
+                                    src={down}
+                                    alt='v'
+                                    style={{
+                                        transition: "transform .5s",
+                                        width:'18px',
+                                        marginLeft:'5px',
+                                        transform: isSelectedCategoryOpen & selectedCategory === category ? "rotate(0deg)" : "rotate(90deg)"
+                                    }}
+                                    onClick={()=>{
+                                        setIsSelectedCategoryOpen(!isSelectedCategoryOpen)
+                                        setSelectedCategory(category)
+                                    }}
+                                />
+                            </div>
+                            { selectedCategory === category & isSelectedCategoryOpen ? (
+                                <div
+                                    style={{backgroundColor:'#000', position:'absolute', display:'flex', flexDirection:'column'}}>
+                                    {data.map((menu) => {
+                                        return(
+                                            menu.map((element) => {
+                                                if ( element.id === selectedCategory) {
+                                                    return (
+                                                        <>
+                                                            <span key={element.uid} style={{ color: "#fff" }}>
+                                                                <Link
+                                                                    to={{
+                                                                        pathname:'/category',
+                                                                        state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid }
+                                                                    }}
+                                                                >
+                                                                    {element.uid}
+                                                                </Link>
+                                                                {element.data.length > 1 &&
+                                                                    <img
+                                                                        src={down}
+                                                                        alt='v'
+                                                                        style={{
+                                                                            transition: "transform .5s",
+                                                                            width: '18px',
+                                                                            marginLeft: '5px',
+                                                                            transform: isSubSelectedCategoryOpen & subSelectedCategory === element.uid ? "rotate(0deg)" : "rotate(90deg)"
+                                                                        }}
+                                                                        onClick={() => {
+                                                                            setIsSubSelectedCategoryOpen(!isSubSelectedCategoryOpen)
+                                                                            setSubSelectedCategory(element.uid)
+                                                                        } } />}
+                                                            </span>
+                                                            {element.data.length > 1 & isSubSelectedCategoryOpen & subSelectedCategory === element.uid &&
+                                                                <div style={{display:'flex', flexDirection:'column'}}>
+                                                                    {element.data.map((subCategory) => {
+                                                                        return(
+                                                                            <span style={{ color: "#F16A28", }} key={subCategory}>
+                                                                                <Link 
+                                                                                    style={{ color: "#F16A28"}}
+                                                                                    to={{
+                                                                                        pathname:'/category',
+                                                                                        state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid }
+                                                                                    }}
+                                                                                >
+                                                                                    {subCategory}
+                                                                                </Link>
+                                                                            </span>
+                                                                        )
+                                                                    })}
+                                                                </div>
+                                                            }
+                                                        </>
+                                                    )
+                                                } 
+                                            })
+                                        )
+                                    })}
+                                </div>
+                            ) : null
+                            }
+                        </span>
+                    )
+                })}
             </div>
             {!user && 
                 <div className='rightside'>

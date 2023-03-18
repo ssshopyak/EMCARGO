@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {db, uploadImages } from '../Config/Config'
 import {toShowError, toShowSuccess} from './FlashMessages'
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDoc, getDocs } from "firebase/firestore";
 
 export const AddProducts = () => {
 
@@ -9,7 +9,12 @@ export const AddProducts = () => {
     const [productPrice, setProductPrice] = useState(0);
     const [productImg, setProductImg] = useState(null);
     const [category, setCategory] = useState('')
+    const [subCategory, setSubCategory] = useState('')
+    const [model, setModel] = useState('')
     const [description, setDescription] = useState('')
+    const [categories, setCategories] = useState([])
+    const [subCategories, setSubCategories] = useState([])
+    const [models, setModels] = useState([])
 
     const types = ['image/png', 'image/jpeg']; // image types
 
@@ -39,6 +44,8 @@ export const AddProducts = () => {
                     ProductName: productName,
                     ProductPrice: Number(productPrice),
                     ProductCategory: category,
+                    ProductSubCategory: subCategory,
+                    ProductModel: model,
                     ProductImg: res,
                     ProductDescription: description
                 }).then((docRef) => {
@@ -57,6 +64,22 @@ export const AddProducts = () => {
         })
     }
 
+    useEffect(()=>{
+        const querySnapshot = getDocs(collection(db, 'CategoriesForNavBar')).then((querySnapsot) => {
+            querySnapsot.forEach((doc) => {
+                if(doc.id === 'categories') {
+                    setCategories(doc.data().data)
+                }
+                if(doc.id === 'subcategories'){
+                    setSubCategories(doc.data().data)
+                }
+                if(doc.id === 'models'){
+                    setModels(doc.data().data)
+                }
+              });
+        })
+    },[])
+
     return (
         <div className='addProducts'>
             <h2>ADD PRODUCTS</h2>
@@ -74,11 +97,39 @@ export const AddProducts = () => {
                 <div className='inputContainer'>
                     <span>Product Category</span>
                     <select value={category} onChange={(event)=>{setCategory(event.target.value)}}>
-                        <option value="Kenworth">Kenworth</option>
-                        <option value="Volvo">Volvo</option>
-                        <option value="DearGuards">Dear Guards</option>
-                        <option value="Freightliner">Freightliner</option>
-                        <option value="Peterbilt">Peterbilt</option>
+                        { 
+                            categories.map((elem) => {
+                                if (elem  !== 'All Products'){
+                                    return (
+                                        <option value={elem}>{elem}</option>
+                                    ) 
+                                }
+                            })
+                        }
+                    </select>
+                </div>
+                <div className='inputContainer'>
+                    <span>Product SubCategory</span>
+                    <select value={subCategory} onChange={(event)=>{setSubCategory(event.target.value)}}>
+                        { 
+                            subCategories.map((elem) => {
+                                    return (
+                                        <option value={elem}>{elem}</option>
+                                    ) 
+                            })
+                        }
+                    </select>
+                </div>
+                <div className='inputContainer'>
+                    <span>Product Model</span>
+                    <select value={model} onChange={(event)=>{setModel(event.target.value)}}>
+                        { 
+                            models.map((elem) => {
+                                    return (
+                                        <option value={elem}>{elem}</option>
+                                    ) 
+                            })
+                        }
                     </select>
                 </div>
                 <div className='inputContainer'>

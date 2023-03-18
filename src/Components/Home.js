@@ -19,7 +19,7 @@ export const Home = ({ user }) => {
                 <span style={{marginLeft: '150px', fontSize:'24px', fontFamily:'Raleway', color:'#fff', textTransform:'uppercase', lineHeight:'28px',fontWeight:'700'}} className="leftText">New arrivals</span>
                 <Link to={{
                     pathname:'/category',
-                    state: { Category: null }
+                    state: { Category: null, SubCategory: null, Model: null }
                 }}>
                     <span style={{marginRight:'150px', fontSize:'16px', fontFamily:'Raleway', color:'#F16A28', textTransform: 'none', lineHeight:'24px',fontWeight:'700',textDecorationLine: 'underline'}} className="rightText">
                         Shop All

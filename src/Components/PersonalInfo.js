@@ -4,6 +4,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, addDoc, getDocs, updateDoc, doc } from "firebase/firestore";
 import { CartContext } from '../Global/CartContext'
 import { Navbar } from './Navbar';
+import delivery from '../images/delivery.png'
+import shop from '../images/shop.png'
 import { useHistory } from 'react-router-dom'
 import { Button } from './Button';
 import { toShowSuccess } from './FlashMessages';
@@ -28,6 +30,7 @@ export const PersonalInfo = ({title}) => {
     const [postcode, setPostcode] = useState('')
     const [phone, setPhone] = useState('')
     const [docId, setDocId] = useState('')
+    const [typeOfDelivery, setIsTypeOfDelivery] = useState('Pick Up')
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -133,6 +136,274 @@ export const PersonalInfo = ({title}) => {
         }
     }
     
+    if( title === 'Cashout Details' ) {
+        return (
+            <>
+            <form autoComplete="off" className='form-group' onSubmit={(e) => {onSubmit(e)}}>
+            <div className='loginContainer'>
+                <div style={{backgroundColor:'#fff', padding:'25px',borderRadius:'25px', display:'flex', flexDirection:'row', marginTop:"100px", marginBottom:'10px', width:'90%', minHeight:'85vh', justifyContent:'space-between'}} className='cashoutContainer'>
+                <div style={{minWidth:'50%'}}>
+                    <h2 style={{marginTop:'10px',textAlign:"center",marginBottom:'10px', color:'#000',fontFamily:'Raleway'}}>{title}</h2>
+                    <div>
+                        
+                            <div style={{display:'flex', flexDirection:'row'}}>
+                            <div style={{display:'flex',flexDirection:'column', margin:'10px', width:'45%'}}>
+                                <label style={{color:'#000',fontFamily:'Raleway'}}>First Name</label>
+                                <input
+                                    type="text" 
+                                    className='form-control' 
+                                    required
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                                <label style={{color:'#000',fontFamily:'Raleway'}}>Phone Number</label>
+                                    <input
+                                        type="number"
+                                        className='form-control' 
+                                        required
+                                        onChange={(e) => setPhone(e.target.value)}
+                                        value={phone}
+                                        placeholder='+1-708-334-0110'
+                                    />
+                            </div>
+                            <div style={{display:'flex',flexDirection:'column',margin:'10px', width:'45%'}}>
+                                <div style={{display:'flex',flexDirection:'column'}}>
+                                <label style={{color:'#000',fontFamily:'Raleway'}}>Last Name</label>
+                                <input
+                                    type="text" 
+                                    className='form-control' 
+                                    required
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
+                                    
+                                </div>
+                                <div style={{display:'flex',flexDirection:'column'}}>
+                                    <label style={{color:'#000',fontFamily:'Raleway'}}>Email</label>
+                                    <input
+                                        type="email" 
+                                        className='form-control' 
+                                        required
+                                        value={email}
+                                        disabled
+                                    />
+
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                    <div style={{display:'flex', flexDirection:'column',}}>
+                        <span style={{margin:'10px'}}>Delivery Option</span>
+                        <label style={{height: '60px', borderRadius:'12px', margin:'10px', border:'1px solid #ced4da', display:'flex',alignItems:'center', textAlign:'center'}}>
+                            <input
+                              type="radio"
+                              value="Ship"
+                              style={{marginLeft:'10px'}}
+                              checked={typeOfDelivery === "Ship"}
+                              onChange={()=>{setIsTypeOfDelivery('Ship')}}
+                            />
+                            <img src={delivery} alt='ship' style={{height:'24px', marginLeft:'10px', marginRight:'10px'}}/>
+                            Ship
+                        </label>
+                        <label style={{height: '60px', borderRadius:'12px', margin:'10px', border:'1px solid #ced4da', display:'flex',alignItems:'center', textAlign:'center'}}>
+                            <input
+                              type="radio"
+                              value="Pick Up"
+                              style={{marginLeft:'10px'}}
+                              checked={typeOfDelivery === "Pick Up"}
+                              onChange={()=>{setIsTypeOfDelivery('Pick Up')}}
+                            />
+                            <img src={shop} alt='ship' style={{height:'24px', marginLeft:'10px', marginRight:'10px'}}/>
+                            Pick Up
+                        </label>
+                    </div>
+                    <div>
+                        { typeOfDelivery === "Pick Up" ? 
+                            (
+                                <>
+                                    <span>Pickup locations</span>
+                                    <div style={{ height: '60px', borderRadius: '12px', margin: '10px', border: '1px solid #ced4da', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginLeft: '5px', marginRight: '5px' }}>
+                                            <span>4210 W 124th Pl</span>
+                                            <span style={{ fontWeight: 'bold' }}>Free</span>
+                                        </div>
+                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginLeft: '5px', marginRight: '5px' }}>
+                                            <span style={{ fontSize: '12px' }}>4210 W 124th Pl, Alsip, IL</span>
+                                            <span style={{ fontSize: '12px' }}>Usually ready in 24 hours</span>
+                                        </div>
+                                    </div>
+                                </>
+                            ) 
+                            : 
+                            (
+                                <div style={{display:'flex', flexDirection:'column', margin:'10px'}}>
+                                    <div>                    
+                                        <label style={{color:'#000',fontFamily:'Raleway'}}>Country/Region</label>
+                                        <input
+                                            type="text" 
+                                            className='form-control' 
+                                            required
+                                            disabled
+                                            value={country}
+                                            onChange={(e) => setCountry(e.target.value)}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label style={{color:'#000',fontFamily:'Raleway'}}>Street Address</label>
+                                        <input
+                                            type="text" 
+                                            className='form-control'
+                                            placeholder='House number and street name' 
+                                            required
+                                            value={streetAddress}
+                                            onChange={(e) => setStreetAddress(e.target.value)}
+                                        />
+                                    </div>
+                                    <div>                    
+                                        <input
+                                            type="text" 
+                                            className='form-control'
+                                            placeholder='Apartament, suite, unit'  
+                                            required
+                                            value={apartamentNumber}
+                                            onChange={(e) => setApartamentNumber(e.target.value)}
+                                        />
+                                    </div>
+                                    <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                                        <div style={{width:'48%'}}>
+                                            <label style={{color:'#000',fontFamily:'Raleway'}}>Town / City</label>
+                                            <input
+                                                type="text" 
+                                                className='form-control'
+                                                required
+                                                value={city}
+                                                onChange={(e) => setCity(e.target.value)}
+                                            />
+                                        </div>
+                                        <div style={{width:'48%'}}>
+                                           <label style={{color:'#000',fontFamily:'Raleway'}}>Postcode / Zip</label>
+                                            <input
+                                                type="text" 
+                                                className='form-control'
+                                                required
+                                                value={postcode}
+                                                onChange={(e) => setPostcode(e.target.value)}
+                                            />  
+                                        </div>                    
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+                </div>
+                <div style={{minWidth:'50%'}}>
+                    <div >
+                        {
+                            shoppingCart.map((shopping)=>{
+                                let product = {
+                                    name : shopping.ProductName,
+                                    img : shopping.ProductImg[0],
+                                    price : shopping.ProductPrice,
+                                    qty : shopping.qty
+                                }
+                                return (
+                                    <div style={{borderRadius:'12px', margin:'10px', border:'1px solid #ced4da', display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                                        <img src={product.img} style={{height:'100px', padding:'5px'}} alt='product'/>
+                                        <span style={{marginTop:'10px'}}>{product.name}</span>
+                                        <span style={{marginTop:'10px',}}>$ {product.price} </span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div style={{margin:'10px'}}>
+                        <div style={{display:'flex', flexDirection:"row", justifyContent:'space-between', marginTop:'5px', marginBottom:'5px'}}>
+                            <span style={{fontSize:'18px'}}>Subtotal</span>
+                            <span style={{fontSize:'18px'}}>$ {totalPrice}</span>
+                        </div>
+                        <div style={{display:'flex', flexDirection:"row", justifyContent:'space-between', marginTop:'5px', marginBottom:'5px'}}>
+                            <span style={{fontSize:'18px'}}>{typeOfDelivery}</span>
+                            <span style={{fontSize:'18px',whiteSpace:'pre-line', textAlign:'right'}}>{typeOfDelivery === 'Pick Up' ? 'Free': 'Free if you live\nin the Chicago area\nand spend over $500\non our website'}</span>
+                        </div>
+                        <div style={{display:'flex', flexDirection:"row", justifyContent:'space-between', marginTop:'5px', marginBottom:'5px'}}>
+                            <span style={{fontSize:'18px'}}>Taxes</span>
+                            <span style={{fontSize:'18px'}}>$ {(totalPrice * 0.115).toFixed(2)}</span>
+                        </div>
+                    </div>
+                    <div style={{display:'flex', flexDirection:"row", justifyContent:'space-between', margin:'10px'}}>
+                        <span style={{fontWeight:'bold', fontSize:"24px"}}>Total</span>
+                        <span style={{fontWeight:'bold', fontSize:"24px"}}>usd $ {(totalPrice * 1.115).toFixed(2)}</span>
+                    </div>
+                    <div style={{marginTop:'15px', margin:'10px'}}>
+                        <PayPalButtons style={{ layout: "vertical", color:'black' }} 
+                            createOrder={(data, actions) => {
+                                return actions.order.create({
+                                    purchase_units: [
+                                        {
+                                            amount: {
+                                                value: totalPrice,
+                                            },
+                                        },
+                                    ],
+                                });
+                            }}
+                            onApprove={(data, actions) => {
+                                return actions.order.capture().then((details) => {
+                                    const name = details.payer.name.given_name;
+                                    cashoutSubmit(new Event("submit", { cancelable: true }))
+                                    toShowSuccess(`Transaction completed by ${name}`);
+                                });
+                            }}/>
+                    </div> 
+                </div>
+                {/* 
+                    <label style={{color:'#000',fontFamily:'Raleway'}}>Company Name</label>
+                    <input
+                        type="text" 
+                        className='form-control' 
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                    />
+
+                    
+
+
+           
+                   
+                    <label style={{color:'#000',fontFamily:'Raleway'}}>State / County</label>
+                    <input
+                        type="text" 
+                        className='form-control'
+                        required
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                    />         
+
+                    <label style={{ color: '#000', fontFamily: 'Raleway' }}>Price To Pay</label>
+                    <input 
+                        type="number" 
+                        className='form-control' 
+                        required
+                        value={totalPrice}
+                        disabled 
+                    />
+                    <label style={{ color: '#000', fontFamily: 'Raleway' }}>Total of Products</label>
+                    <input 
+                        type="number" 
+                        className='form-control' 
+                        required
+                        value={totalQty}
+                        disabled 
+                    />
+                    
+                </form> */}
+                </div>
+            </div>
+            </form>
+        </>
+        )
+    }
+
     return (
         <>
             <div className='loginContainer'>
@@ -238,52 +509,9 @@ export const PersonalInfo = ({title}) => {
                         value={phone}
                         placeholder='+1-708-334-0110'
                     />
-                    { title === 'Cashout Details' &&
-                        <>
-                            <label style={{ color: '#000', fontFamily: 'Raleway' }}>Price To Pay</label>
-                            <input 
-                                type="number" 
-                                className='form-control' 
-                                required
-                                value={totalPrice}
-                                disabled 
-                            />
-                            <label style={{ color: '#000', fontFamily: 'Raleway' }}>Total of Products</label>
-                            <input 
-                                type="number" 
-                                className='form-control' 
-                                required
-                                value={totalQty}
-                                disabled 
-                            />
-                            <div style={{marginTop:'15px'}}>
-                                <PayPalButtons style={{ layout: "vertical", color:'black' }} 
-                                    createOrder={(data, actions) => {
-                                        return actions.order.create({
-                                            purchase_units: [
-                                                {
-                                                    amount: {
-                                                        value: totalPrice,
-                                                    },
-                                                },
-                                            ],
-                                        });
-                                    }}
-                                    onApprove={(data, actions) => {
-                                        return actions.order.capture().then((details) => {
-                                            const name = details.payer.name.given_name;
-                                            cashoutSubmit(new Event("submit", { cancelable: true }))
-                                            alert(`Transaction completed by ${name}`);
-                                        });
-                                    }}/>
-                            </div> 
-                        </>
-                    }
-                    { title === 'Personal Info' &&
-                        <div style={{ marginTop: '25px', display: 'flex', alignItems: 'center' }}>
-                            <Button type='submit' title='Submit' color={'#fff'} backgroundColor={'#f16a28'} padding={'5px 20px 5px 20px'} />
-                        </div>
-                    }
+                    <div style={{ marginTop: '25px', display: 'flex', alignItems: 'center' }}>
+                        <Button type='submit' title='Submit' color={'#fff'} backgroundColor={'#f16a28'} padding={'5px 20px 5px 20px'} />
+                    </div>
                 </form>
                 </div>
             </div>

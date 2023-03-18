@@ -16,7 +16,7 @@ export const ShopNow = () => {
                     <Link
                         to={{
                             pathname:'/category',
-                            state: { Category: null }
+                            state: { Category: null, SubCategory: null, Model: null }
                         }}>
                         <Button 
                             onClick={()=>{console.log('123')}} 

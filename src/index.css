@@ -43,8 +43,7 @@ body {
 }
 
 .navbox .links span{
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 25px;
     color: #010207;
     font-size: 16px;
 }
@@ -57,7 +56,6 @@ body {
 
 .navbox .leftside {
     flex-direction: row;
-    width: 70px;
     height: 70px;
 }
 
@@ -480,6 +478,14 @@ body {
     color: #000;
 }
 
+@media (max-width:1200px) {
+    .cashoutContainer {
+        flex-direction: column !important;
+    }
+}
+
+
+
 /* cashout */
 .success-msg {
     background-color: green;
@@ -694,4 +700,6 @@ body {
 .form-control {
     margin-top:5px;
     margin-bottom:5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }

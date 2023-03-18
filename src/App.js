@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ProductsContextProvider } from './Global/ProductsContext'
 import { Home } from './Components/Home'
-import { HashRouter , Switch, Route } from 'react-router-dom'
+import { HashRouter , Switch, Route, BrowserRouter } from 'react-router-dom'
 import { Signup } from './Components/Signup'
 import { Login } from './Components/Login'
 import { NotFound } from './Components/NotFound'
@@ -30,7 +30,6 @@ const App = () => {
         onAuthStateChanged(auth, (user) => {
             userCheck = user
             if (user) {
-                console.log(user.emailVerified)
                 if(user.emailVerified){
                     if(user.email === 'ostap.shopyak@gmail.com' ) {
                         setIsAdmin(true)
@@ -57,7 +56,7 @@ const App = () => {
         <PayPalScriptProvider options={{ "client-id": "AVN76x7JXFPKeEVryg729X9JIi04E8nA2WdrD607i8yyTnR-XYkZxRBRj6CgCfMP3gJ50lluHQQw4WQp", currency: 'USD' }}>
         <ProductsContextProvider>
             <CartContextProvider>
-                <HashRouter  basename='/'>
+                <HashRouter  basename='/'> {/*Не забути вернути на BrowserRouter*/}
                     <Switch>
                         <Route exact path='/' component={() => <Home user={user} />} />
                         <Route path="/signup" component={Signup} />
