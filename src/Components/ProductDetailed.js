@@ -30,6 +30,7 @@ const ProductDetails = (props) => {
             <div className='halfScreen'>
               <div className='bodyText'>
                 <h2 style={{fontSize: '48px',textTransform: 'uppercase'}}>{myProp.ProductCategory} <span style={{color:'#CEC9C7'}}>{myProp.ProductName}</span></h2>
+                <span style={{color:'#F16A28'}}>{myProp.ProductModel}<span style={{color:'#fff'}}>{' / '}</span>{myProp.ProductSubCategory}</span>
                 {myProp.ProductDescription.length > 0 && <p>Description : <span style={{color:'#CEC9C7'}}>{myProp.ProductDescription}</span></p>}
                 <div style={{display:'flex',flexDirection:'row', justifyContent:'center', alignItems:'center', textAlign:'center'}}>
                   <p className='priceText' style={{fontFamily: 'Inter',margin: '0',fontSize:'24px',marginRight:'24px'}}>{myProp.ProductPrice} $</p>
