@@ -68,7 +68,7 @@ const App = () => {
     }
 
     return (
-        <PayPalScriptProvider options={{ "client-id": "AVN76x7JXFPKeEVryg729X9JIi04E8nA2WdrD607i8yyTnR-XYkZxRBRj6CgCfMP3gJ50lluHQQw4WQp", currency: 'USD' }}>
+        <PayPalScriptProvider options={{ "client-id": "test", currency: 'USD' }}>
         <ProductsContextProvider>
             <CartContextProvider>
                 <HashRouter  basename='/'> {/*Не забути вернути на BrowserRouter*/}

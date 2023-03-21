@@ -70,7 +70,8 @@ export const PersonalInfo = ({title}) => {
                         name : shopping.ProductName,
                         img : shopping.ProductImg[0],
                         price : shopping.ProductPrice,
-                        qty : shopping.qty
+                        qty : shopping.qty,
+                        side : shopping.side
                     }
                     return product
                 })

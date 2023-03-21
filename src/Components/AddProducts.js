@@ -15,6 +15,7 @@ export const AddProducts = () => {
     const [categories, setCategories] = useState([])
     const [subCategories, setSubCategories] = useState([])
     const [models, setModels] = useState([])
+    const [side, setSide] = useState(false)
 
     const types = ['image/png', 'image/jpeg']; // image types
 
@@ -46,6 +47,7 @@ export const AddProducts = () => {
                     ProductCategory: category,
                     ProductSubCategory: subCategory,
                     ProductModel: model,
+                    ProductSide: side,
                     ProductImg: res,
                     ProductDescription: description
                 }).then((docRef) => {
@@ -131,6 +133,9 @@ export const AddProducts = () => {
                             })
                         }
                     </select>
+                </div>
+                <div className='inputContainer'>
+                    <span>Product Side <input type="checkbox" checked={side} onChange={() => {setSide(!side)}} /></span>
                 </div>
                 <div className='inputContainer'>
                     <span>Product Image</span>
