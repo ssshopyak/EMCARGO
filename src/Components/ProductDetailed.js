@@ -46,7 +46,7 @@ const ProductDetails = (props) => {
                   </select>
                 </div> : null
               }
-              <p className='priceText' style={{ fontFamily: 'Inter', margin: '0', fontSize: '24px', marginRight: '24px' }}>{myProp.ProductPrice} $</p>
+              <p className='priceText' style={{ fontFamily: 'Inter', margin: '0', fontSize: '24px', marginRight: '24px' }}>{sideProduct.ProductPrice} $</p>
               <Button title={'Add to Cart'} onClick={() => { addToCart(sideProduct) } } color={'#fff'} backgroundColor={'#F16A28'} padding={'5px 20px 5px 20px'} border={'1px solid #F16A28'} />
             </div>
           </div>
