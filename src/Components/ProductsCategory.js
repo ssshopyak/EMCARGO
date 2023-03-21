@@ -53,19 +53,25 @@ const ProductsCategory = (props) => {
                             />
                         </div>
                         <span style={{color:'#fff', alignSelf:'center',display: 'flex', alignItems: 'center'}}>
-                            <span onClick={()=>{
-                                history.push({
+                            <Link 
+                                to={{
                                     pathname:'/category',
                                     state: { Category: category, SubCategory:null, Model:null, KeyWord:null }
-                                })
-                            }}>{category}</span>
+                                }}
+                                style={{color:'#fff'}}
+                            >
+                                {category}
+                            </Link>
                             {model ?<img src={down} alt='v' style={{width:'18px',transform:'rotate(270deg)'}}/> : null}
-                            <span onClick={()=>{
-                                history.push({
+                            <Link 
+                                to={{
                                     pathname:'/category',
                                     state: { Category: category, SubCategory:null, Model:model, KeyWord:null }
-                                })
-                            }}>{model}</span>
+                                }}
+                                style={{color:'#fff'}}
+                            >
+                                {model}
+                            </Link>
                             {subCategory ? <img src={down} alt='v' style={{width:'18px',transform:'rotate(270deg)'}}/> : null}
                             <span>{subCategory}</span>
                         </span>
