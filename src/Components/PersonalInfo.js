@@ -15,7 +15,7 @@ export const PersonalInfo = ({title}) => {
 
     const history = useHistory();
     const { shoppingCart, totalPrice, totalQty, dispatch } = useContext(CartContext);
-
+    const states = ['Select Region', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
     // defining state
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -250,34 +250,24 @@ export const PersonalInfo = ({title}) => {
                                     </div>
                                     <div>
                                         <label style={{color:'#000',fontFamily:'Raleway'}}>State / County</label>
-                                        <RegionDropdown
-                                            style={{
-                                                display: "block",
-                                                width: "100%",
-                                                padding: "0.375rem 0.75rem",
-                                                fontSize: "1rem",
-                                                fontWeight: "400",
-                                                lineHeight: "1.5",
-                                                color: "#212529",
-                                                backgroundColor: "#fff",
-                                                backgroundClip: "padding-box",
-                                                border: "1px solid #ced4da",
-                                                appearance: "none",
-                                                borderRadius: "0.375rem",
-                                            }}
-                                            country={'United States'}
-                                            value={state}
-                                            onChange={setState} />
+                                        <select value={state} onChange={(event)=>{setState(event.target.value)}} className='form-control'>
+                                            {states.map((state) => {
+                                                return (
+                                                    <option value={state}>{state}</option>
+                                                ) 
+                                            })}
+                                        </select> 
                                     </div>
                                     <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', marginTop:'10px'}}>
                                         <div style={{width:'48%'}}>
-                                            <label style={{color:'#000',fontFamily:'Raleway'}}>City</label>
+                                            <label style={{color:'#000',fontFamily:'Raleway'}}>Street Address</label>
                                             <input
                                                 type="text" 
                                                 className='form-control'
+                                                placeholder='House number and street name' 
                                                 required
-                                                value={city}
-                                                onChange={(e) => setCity(e.target.value)}
+                                                value={streetAddress}
+                                                onChange={(e) => setStreetAddress(e.target.value)}
                                             />
                                         </div>
                                         <div style={{width:'48%'}}>
@@ -291,18 +281,19 @@ export const PersonalInfo = ({title}) => {
                                             />  
                                         </div>                    
                                     </div>
-                                    <div>
-                                        <label style={{color:'#000',fontFamily:'Raleway'}}>Street Address</label>
-                                        <input
-                                            type="text" 
-                                            className='form-control'
-                                            placeholder='House number and street name' 
-                                            required
-                                            value={streetAddress}
-                                            onChange={(e) => setStreetAddress(e.target.value)}
-                                        />
+                                    <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', marginTop:'10px'}}>
+                                    <div style={{width:'48%'}}>
+                                            <label style={{color:'#000',fontFamily:'Raleway'}}>City</label>
+                                            <input
+                                                type="text" 
+                                                className='form-control'
+                                                required
+                                                value={city}
+                                                onChange={(e) => setCity(e.target.value)}
+                                            />
                                     </div>
-                                    <div>                    
+                                    <div style={{width:'48%'}}>
+                                        <label style={{color:'#000',fontFamily:'Raleway'}}>Apartament, suite, unit</label>                    
                                         <input
                                             type="text" 
                                             className='form-control'
@@ -311,6 +302,7 @@ export const PersonalInfo = ({title}) => {
                                             value={apartamentNumber}
                                             onChange={(e) => setApartamentNumber(e.target.value)}
                                         />
+                                    </div>                 
                                     </div>
                                 </div>
                             )
@@ -457,25 +449,14 @@ export const PersonalInfo = ({title}) => {
                         onChange={(e) => setCity(e.target.value)}
                     />
                     <label style={{color:'#000',fontFamily:'Raleway'}}>State / County</label>
-                    <label style={{color:'#000',fontFamily:'Raleway'}}>State / County</label>
-                    <RegionDropdown
-                        style={{
-                            display: "block",
-                            width: "100%",
-                            padding: "0.375rem 0.75rem",
-                            fontSize: "1rem",
-                            fontWeight: "400",
-                            lineHeight: "1.5",
-                            color: "#212529",
-                            backgroundColor: "#fff",
-                            backgroundClip: "padding-box",
-                            border: "1px solid #ced4da",
-                            appearance: "none",
-                            borderRadius: "0.375rem",
-                        }}
-                        country={'United States'}
-                        value={state}
-                        onChange={setState} />       
+                    <select value={state} onChange={(event)=>{setState(event.target.value)}} className='form-control'>
+                        {states.map((state) => {
+                                return (
+                                    <option value={state}>{state}</option>
+                                ) 
+                            })
+                        }
+                    </select>                               
                     <label style={{color:'#000',fontFamily:'Raleway'}}>Zipcode</label>
                     <input
                         type="text" 
