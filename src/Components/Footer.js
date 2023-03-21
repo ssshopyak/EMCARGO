@@ -58,7 +58,7 @@ export const Footer = () => {
                 <div style={{display:'flex', flexDirection:'column'}}>
                     <h2 style={{color:'#f16a28'}}>Information</h2>
                     <Link to="/"  style={{color:'#fff'}}> About us</Link>
-                    <Link to="/"  style={{color:'#fff'}}> Store Regulations</Link>
+                    <Link to="/regulation"  style={{color:'#fff'}}> Store Regulations</Link>
                 </div>
                 <div style={{display:'flex', flexDirection:'column', marginTop:'20px'}}>
                     <h2 style={{color:'#f16a28'}}>My Account</h2>
@@ -68,7 +68,7 @@ export const Footer = () => {
                     <Link 
                         to={{
                             pathname:'/category',
-                            state: { Category: null, SubCategory:null, Model:null }
+                            state: { Category: null, SubCategory:null, Model:null, KeyWord:null }
                         }} 
                         style={{color:'#fff'}}>
                             Buy again
@@ -81,7 +81,7 @@ export const Footer = () => {
                     <Link 
                         to={{
                             pathname:'/category',
-                            state: { Category: 'Kenworth', SubCategory:null, Model:null }
+                            state: { Category: 'Kenworth', SubCategory:null, Model:null,KeyWord:null }
                         }}
                         className='navlink' 
                         style={{color: '#fff'}}>
@@ -92,7 +92,7 @@ export const Footer = () => {
                     <Link 
                         to={{
                             pathname:'/category',
-                            state: { Category: 'Volvo', SubCategory:null, Model:null }
+                            state: { Category: 'Volvo', SubCategory:null, Model:null,KeyWord:null }
                         }}
                         className='navlink' 
                         style={{color: '#fff'}}>
@@ -103,7 +103,7 @@ export const Footer = () => {
                     <Link 
                         to={{
                             pathname:'/category',
-                            state: { Category: 'DearGuards', SubCategory:null, Model:null }
+                            state: { Category: 'DearGuards', SubCategory:null, Model:null,KeyWord:null }
                         }}
                         className='navlink' 
                         style={{color: '#fff'}}>
@@ -114,7 +114,7 @@ export const Footer = () => {
                     <Link 
                         to={{
                             pathname:'/category',
-                            state: { Category: 'Freightliner', SubCategory:null, Model:null }
+                            state: { Category: 'Freightliner', SubCategory:null, Model:null,KeyWord:null }
                         }}
                         className='navlink' 
                         style={{color: '#fff'}}>
@@ -125,7 +125,7 @@ export const Footer = () => {
                     <Link 
                         to={{
                             pathname:'/category',
-                            state: { Category: 'Peterbilt', SubCategory:null, Model:null }
+                            state: { Category: 'Peterbilt', SubCategory:null, Model:null, KeyWord:null }
                         }}
                         className='navlink' 
                         style={{color: '#fff'}}>
@@ -136,7 +136,7 @@ export const Footer = () => {
                         <Link 
                             to={{
                                 pathname:'/category',
-                                state: { Category: null, SubCategory:null, Model:null }
+                                state: { Category: null, SubCategory:null, Model:null, KeyWord:null }
                             }}
                             className='navlink' 
                             style={{color: '#fff'}}>

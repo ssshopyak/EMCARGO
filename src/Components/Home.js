@@ -19,14 +19,14 @@ export const Home = ({ user }) => {
                 <span style={{marginLeft: '150px', fontSize:'24px', fontFamily:'Raleway', color:'#fff', textTransform:'uppercase', lineHeight:'28px',fontWeight:'700'}} className="leftText">New arrivals</span>
                 <Link to={{
                     pathname:'/category',
-                    state: { Category: null, SubCategory: null, Model: null }
+                    state: { Category: null, SubCategory: null, Model: null, KeyWord:null }
                 }}>
                     <span style={{marginRight:'150px', fontSize:'16px', fontFamily:'Raleway', color:'#F16A28', textTransform: 'none', lineHeight:'24px',fontWeight:'700',textDecorationLine: 'underline'}} className="rightText">
                         Shop All
                     </span>
                 </Link>
             </div>
-            <div className='categoriesContainer' style={{backgroundColor:'#000',justifyContent:'center',display:'flex', flexDirection: 'row'}}>
+            <div className='categoriesContainer' style={{backgroundColor:'#000',justifyContent:'center',display:'flex', flexDirection: 'row', paddingBottom:'25px'}}>
                 {categories.map((category)=>{
                     const changeCategory = (category) => {
                         setSelectedCategory(category)

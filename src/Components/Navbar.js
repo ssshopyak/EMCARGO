@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { auth } from '../Config/Config'
 import { Icon } from 'react-icons-kit'
 import { cart } from 'react-icons-kit/entypo/cart'
+import {ic_search} from 'react-icons-kit/md/ic_search'
 import down from '../images/down.png'
 import { useHistory } from 'react-router-dom'
 import { CartContext } from '../Global/CartContext'
@@ -23,8 +24,9 @@ export const Navbar = ({ user }) => {
     const [isSelectedCategoryOpen, setIsSelectedCategoryOpen] = useState(false)
     const [subSelectedCategory, setSubSelectedCategory] = useState(null)
     const [isSubSelectedCategoryOpen, setIsSubSelectedCategoryOpen] = useState(false)
-
     const [categoryList, setCategoryList] = useState([])
+    const [search, setSearch] = useState('')
+    const [isOpenedSearch, setIsOpenedSearch] = useState(false)
 
     const history = useHistory();
     const { totalQty } = useContext(CartContext);
@@ -49,7 +51,23 @@ export const Navbar = ({ user }) => {
         largeDesktop: 1600,
     });
 
+    const handleLogout = () => {
+        auth.signOut().then(() => {
+            history.push('/login');
+        })
+    }
+    const handleOpenMenu = () => {
+        if (isMenuOpen) {
+            setTimeout(()=>{setIsMenuOpen(false)},1000)
+            setIsMenuOpenStyle(false)
+        } else {
+            setIsMenuOpenStyle(true)
+            setIsMenuOpen(true)
+        }
+    }
+    
     useEffect(()=>{
+        console.log(search)
         const querySnapshot = getDocs(collection(db, 'Categories')).then((querySnapsot) => {
             querySnapsot.forEach((doc) => {
                 setData((prev)=> [...prev, Object.values(doc.data())])
@@ -72,21 +90,6 @@ export const Navbar = ({ user }) => {
             setIsMobile(false)
         }
     },[screenType])
-    // handle logout
-    const handleLogout = () => {
-        auth.signOut().then(() => {
-            history.push('/login');
-        })
-    }
-    const handleOpenMenu = () => {
-        if (isMenuOpen) {
-            setTimeout(()=>{setIsMenuOpen(false)},1000)
-            setIsMenuOpenStyle(false)
-        } else {
-            setIsMenuOpenStyle(true)
-            setIsMenuOpen(true)
-        }
-    }
 
     if ( isMobile ) {
         return (
@@ -109,7 +112,7 @@ export const Navbar = ({ user }) => {
                                             onClick={handleOpenMenu}  
                                             to={{
                                                 pathname:'/category',
-                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null }
+                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null, KeyWord:null }
                                             }}
                                             className='navlink' 
                                             style={{color: '#fff'}}>
@@ -141,10 +144,10 @@ export const Navbar = ({ user }) => {
                                                                 <>
                                                                     <span key={element.uid} style={{ color: "#fff",}}>
                                                                         <Link
-                                                                            style={{ color: "#fff",}}
+                                                                            style={{ color: "#fff"}}
                                                                             to={{
                                                                                 pathname:'/category',
-                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid }
+                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid, KeyWord:null }
                                                                             }}
                                                                         >
                                                                             {element.uid}
@@ -173,7 +176,7 @@ export const Navbar = ({ user }) => {
                                                                                             style={{ color: "#F16A28" }} 
                                                                                             to={{
                                                                                                 pathname:'/category',
-                                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid }
+                                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid, KeyWord:null }
                                                                                             }}
                                                                                         >
                                                                                             {subCategory}
@@ -253,15 +256,15 @@ export const Navbar = ({ user }) => {
                     return (
                         <span
                             key={category}>
-                            <div>
+                            <div style={{display:'flex',alignItems:'center'}}>
                                 <Link
                                     onClick={handleOpenMenu}  
                                     to={{
                                         pathname:'/category',
-                                        state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null }
+                                        state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null, KeyWord:null }
                                     }}
                                     className='navlink' 
-                                    style={{color: '#fff'}}>
+                                    style={{color: '#fff',fontSize:'24px',textDecoration:'none'}}>
                                     {category}
                                 </Link>
                                 <img 
@@ -269,7 +272,7 @@ export const Navbar = ({ user }) => {
                                     alt='v'
                                     style={{
                                         transition: "transform .5s",
-                                        width:'18px',
+                                        width:'24px',
                                         marginLeft:'5px',
                                         transform: isSelectedCategoryOpen & selectedCategory === category ? "rotate(0deg)" : "rotate(90deg)"
                                     }}
@@ -292,7 +295,7 @@ export const Navbar = ({ user }) => {
                                                                 <Link
                                                                     to={{
                                                                         pathname:'/category',
-                                                                        state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid }
+                                                                        state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid, KeyWord:null }
                                                                     }}
                                                                 >
                                                                     {element.uid}
@@ -321,7 +324,7 @@ export const Navbar = ({ user }) => {
                                                                                     style={{ color: "#F16A28"}}
                                                                                     to={{
                                                                                         pathname:'/category',
-                                                                                        state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid }
+                                                                                        state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid, KeyWord:null }
                                                                                     }}
                                                                                 >
                                                                                     {subCategory}
@@ -353,6 +356,7 @@ export const Navbar = ({ user }) => {
                 <div className='rightside'>
                     <span><Link to="/" className='navlink' style={{fontSize:18}}>{user}</Link></span>
                     <span style={{marginLeft:'10px'}}>
+                        <Icon icon={ic_search} size={22} style={{color:'#fff',marginRight:'10px'}} onClick={()=>{setIsOpenedSearch(!isOpenedSearch)}}/>
                         <Link to="cartproducts" className='navlink'><Icon icon={cart} /></Link>
                         <span style={{position:'absolute', color:'#fff'}}>{totalQty}</span>
                     </span>   
@@ -364,6 +368,40 @@ export const Navbar = ({ user }) => {
                         color={'#fff'} 
                         border={'1px solid #F16A28'}
                     />
+                    <div style={{ position:'absolute', marginTop:'10px', display:'flex',flexDirection:'row',justifyContent:'flex-end', alignItems:'center', width:'100%',paddingRight:'10px'}}>
+                        {isOpenedSearch ?
+                            <>
+                                <input
+                                    style={{
+                                        display: "block",
+                                        width: "100%",
+                                        padding: "0.375rem 0.75rem",
+                                        fontSize: "1rem",
+                                        fontWeight: "400",
+                                        lineHeight: "1.5",
+                                        color: "#212529",
+                                        backgroundColor: "#fff",
+                                        backgroundClip: "padding-box",
+                                        border: "1px solid #ced4da",
+                                        appearance: "none",
+                                        borderRadius: "0.375rem",
+                                        animation: isOpenedSearch ? "fade-out 5s forwards" : "fade-in 5s forwards"
+                                    }}
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)} />
+                                    <Link
+                                        to={{
+                                            pathname:'/category',
+                                            state: { Category: null, SubCategory: null, Model: null, KeyWord:search }
+                                        }}
+                                        style={{ position: 'absolute', marginRight: '10px', color:'#F16A28' }}
+                                    >
+                                        <Icon icon={ic_search} size={22} onClick={() => {console.log(search)}} />
+                                    </Link>
+                                    
+                            </> : null
+                        }
+                    </div>
                 </div>
             }
         </div>

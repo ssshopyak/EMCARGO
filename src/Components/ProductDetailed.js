@@ -24,7 +24,7 @@ const ProductDetails = (props) => {
       <div>
         <Navbar user={props.user}/>
         <div className='productDetailedConatainer'>
-            <div className='halfScreen'>
+            <div className='imageScreen'>
               <ImageCarousel images={myProp.ProductImg}/>
             </div>
             <div className='halfScreen'>

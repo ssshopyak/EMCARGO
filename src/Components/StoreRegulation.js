@@ -1,9 +1,4 @@
-import React, { useState } from 'react'
-import { auth } from '../Config/Config'
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link } from 'react-router-dom'
-import { Button } from './Button';
-import { toShowError } from './FlashMessages';
+import React from 'react'
 import { Navbar } from './Navbar';
 
 export const StoreRegulation = ({user}) => {

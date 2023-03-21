@@ -18,15 +18,19 @@ import ProductsCategory from './Components/ProductsCategory'
 import Personal from './Components/Personal'
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { StoreRegulation } from './Components/StoreRegulation'
-
+import { Spinner } from "react-activity";
+import "react-activity/dist/library.css";
 
 const App = () => {
     const [user, setUser] = useState(null)
     const [userUID, setUserUid] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
+    
     let userCheck = null
 
     useEffect(()=>{
+        setIsLoading(true)
         onAuthStateChanged(auth, (user) => {
             userCheck = user
             if (user) {
@@ -50,7 +54,18 @@ const App = () => {
                 setUser(null)
             }
         })
+        setTimeout(()=>{
+            setIsLoading(false)
+        },1100)  
     },[userCheck])
+
+    if (isLoading) {
+        return(
+            <div style={{backgroundColor:'#000',height:'100vh', width:'100vw', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                <Spinner color="#F16A28" size={32} speed={1} animating={true} />
+            </div>
+        )
+    }
 
     return (
         <PayPalScriptProvider options={{ "client-id": "AVN76x7JXFPKeEVryg729X9JIi04E8nA2WdrD607i8yyTnR-XYkZxRBRj6CgCfMP3gJ50lluHQQw4WQp", currency: 'USD' }}>

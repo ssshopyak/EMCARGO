@@ -76,7 +76,7 @@ export const Cart = ({ user }) => {
                             <div style={{marginTop:'15px',display:'flex', justifyContent:'center'}}>
                             <Button 
                                     onClick={()=>{history.push('/cashout')}}
-                                    title={'Cash on delivery'}
+                                    title={'Check Out'}
                                     backgroundColor={'#F16A28'}
                                     padding={'5px 20px 5px 20px'}
                                     border={'1px solid #F16A28'}
