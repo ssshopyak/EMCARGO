@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/emcargo/static/css/main.3965f738.chunk.css",
-    "main.js": "/emcargo/static/js/main.88cd94a8.chunk.js",
-    "main.js.map": "/emcargo/static/js/main.88cd94a8.chunk.js.map",
+    "main.css": "/emcargo/static/css/main.d78d472d.chunk.css",
+    "main.js": "/emcargo/static/js/main.01448201.chunk.js",
+    "main.js.map": "/emcargo/static/js/main.01448201.chunk.js.map",
     "runtime-main.js": "/emcargo/static/js/runtime-main.febdc795.js",
     "runtime-main.js.map": "/emcargo/static/js/runtime-main.febdc795.js.map",
-    "static/css/2.8e3458e0.chunk.css": "/emcargo/static/css/2.8e3458e0.chunk.css",
-    "static/js/2.f8c792ad.chunk.js": "/emcargo/static/js/2.f8c792ad.chunk.js",
-    "static/js/2.f8c792ad.chunk.js.map": "/emcargo/static/js/2.f8c792ad.chunk.js.map",
+    "static/css/2.ecacbe88.chunk.css": "/emcargo/static/css/2.ecacbe88.chunk.css",
+    "static/js/2.1b6505bc.chunk.js": "/emcargo/static/js/2.1b6505bc.chunk.js",
+    "static/js/2.1b6505bc.chunk.js.map": "/emcargo/static/js/2.1b6505bc.chunk.js.map",
     "index.html": "/emcargo/index.html",
-    "precache-manifest.06f831ab3ed8ef2b728a9f9894a985ea.js": "/emcargo/precache-manifest.06f831ab3ed8ef2b728a9f9894a985ea.js",
+    "precache-manifest.b4d8c5bc1dc865ff3c450067a3074e0b.js": "/emcargo/precache-manifest.b4d8c5bc1dc865ff3c450067a3074e0b.js",
     "service-worker.js": "/emcargo/service-worker.js",
-    "static/css/2.8e3458e0.chunk.css.map": "/emcargo/static/css/2.8e3458e0.chunk.css.map",
-    "static/css/main.3965f738.chunk.css.map": "/emcargo/static/css/main.3965f738.chunk.css.map",
-    "static/js/2.f8c792ad.chunk.js.LICENSE.txt": "/emcargo/static/js/2.f8c792ad.chunk.js.LICENSE.txt",
-    "static/js/main.88cd94a8.chunk.js.LICENSE.txt": "/emcargo/static/js/main.88cd94a8.chunk.js.LICENSE.txt",
+    "static/css/2.ecacbe88.chunk.css.map": "/emcargo/static/css/2.ecacbe88.chunk.css.map",
+    "static/css/main.d78d472d.chunk.css.map": "/emcargo/static/css/main.d78d472d.chunk.css.map",
+    "static/js/2.1b6505bc.chunk.js.LICENSE.txt": "/emcargo/static/js/2.1b6505bc.chunk.js.LICENSE.txt",
+    "static/js/main.01448201.chunk.js.LICENSE.txt": "/emcargo/static/js/main.01448201.chunk.js.LICENSE.txt",
     "static/media/index.css": "/emcargo/static/media/backgroundMobile.33d70418.jpg",
     "static/media/delivery.png": "/emcargo/static/media/delivery.77b70638.png",
     "static/media/ecommerce.svg": "/emcargo/static/media/ecommerce.302d6de0.svg",
@@ -27,9 +27,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.febdc795.js",
-    "static/css/2.8e3458e0.chunk.css",
-    "static/js/2.f8c792ad.chunk.js",
-    "static/css/main.3965f738.chunk.css",
-    "static/js/main.88cd94a8.chunk.js"
+    "static/css/2.ecacbe88.chunk.css",
+    "static/js/2.1b6505bc.chunk.js",
+    "static/css/main.d78d472d.chunk.css",
+    "static/js/main.01448201.chunk.js"
   ]
 }
