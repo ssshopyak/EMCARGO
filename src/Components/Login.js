@@ -31,7 +31,7 @@ export const Login = (props) => {
         <div className='loginContainer'>
             <div style={{backgroundColor:'#fff', padding:'25px',borderRadius:'25px', display:'flex', flexDirection:'column'}}>
                 <h2 style={{alignSelf:'center'}}>Login</h2>
-                <form autoComplete="off" className='form-group' onSubmit={login}>
+                <form autoComplete="off" style={{display:'flex',flexDirection:'column'}} onSubmit={login}>
                     <label htmlFor="email">Email</label>
                     <input type="email" className='form-control' required
                         onChange={(e) => setEmail(e.target.value)} value={email} />
@@ -42,8 +42,8 @@ export const Login = (props) => {
                         <Button type='submit' title='Login' color={'#fff'} backgroundColor={'#f16a28'} padding={'5px 20px 5px 20px'} />
                     </div>
                 </form>
-                <span>Don't have an account? Register
-                    <Link to="signup"> Here</Link>
+                <span style={{marginTop:'10px'}}>Don't have an account? Register
+                    <Link to="signup" style={{color:'#F16A28', fontWeight: "bold"}}> Here</Link>
                 </span>
             </div>
         </div>

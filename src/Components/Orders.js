@@ -52,7 +52,7 @@ const Orders = ({ user, userUid }) => {
                         overlay: 'customOverlay',
                         modal: 'customModal',
                     }}>
-                        <h2 style={{color:'#fff', marginTop:'25px'}}>Do you confirm the cancellation of the order?</h2>
+                        <h2 style={{color:'#000', marginTop:'25px'}}>Do you confirm the cancellation of the order?</h2>
                         <div style={{alignItems:'center', display:'flex',justifyContent:'center',alignSelf:'center',width:'100%', marginTop:'10px'}}>
                             <div style={{marginRight:'10px'}}>
                                 <Button
@@ -76,17 +76,17 @@ const Orders = ({ user, userUid }) => {
                             </div>
                         </div>
                 </Modal>
-                <div style={{backgroundColor:'#000', position:'absolute', width:'100%', display:'flex', flexDirection:'column', alignItems:'center', minHeight:'100%'}}>
+                <div style={{backgroundColor:'#fff', position:'absolute', width:'100%', display:'flex', flexDirection:'column', alignItems:'center', minHeight:'100%'}}>
                 {orders.length === 0 && <div style={{marginTop:'50vh',color:'#fff'}}>Loading</div>}
                 {orders.length > 0 && orders.map(order => (
                     <div key={order.id} className='ordersContainer'>
                         <div className='dateContainer'>
                             <div>
-                                <span style={{ fontFamily: 'Raleway', color: '#fff' }}>Date </span>
+                                <span style={{ fontFamily: 'Raleway', color: '#000' }}>Date </span>
                                 <span style={{ fontFamily: 'Raleway', color: '#f16a28' }}>{order.DateOfShop}</span>
                             </div>
                             <div>
-                                <span style={{ fontFamily: 'Raleway', color: '#fff' }}>Order </span>
+                                <span style={{ fontFamily: 'Raleway', color: '#000' }}>Order </span>
                                 <span style={{ fontFamily: 'Raleway', color: '#f16a28' }}>#{order.id}</span>
                             </div>
                         </div>
@@ -98,18 +98,18 @@ const Orders = ({ user, userUid }) => {
                                     </div>
                                     <div style={{width:'75%', display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
                                         <span style={{color:'#F16A28', marginTop:'10px',marginRight:'10px'}}>{product.name}</span>
-                                        <span style={{display:'flex',justifyContent:'space-between',marginBottom:'10px',marginRight:'10px'}}><span style={{color:'#fff'}}>Qty: {product.qty} </span><span style={{color:'#fff'}} >Price: ${product.price}</span></span>
+                                        <span style={{display:'flex',justifyContent:'space-between',marginBottom:'10px',marginRight:'10px'}}><span style={{color:'#000'}}>Qty: {product.qty} </span><span style={{color:'#000'}} >Price: ${product.price}</span></span>
                                     </div>
                                 </div>
                             ))}
                             <div style={{width:'100%',backgroundColor:'#F16A28',height:'1px'}}></div>
                         </div>
-                        <div style={{width:'100%', display:'flex',flexDirection:'row', justifyContent:'space-between',padding:'10px'}}>
-                            <div style={{marginLeft:'10px', alignItems:'center',display:'flex',flexDirection:'row'}}>
+                        <div style={{width:'100%', display:'flex',flexDirection:'row', justifyContent:'space-between',height:'45px', alignItems:'center', textAlign:'center'}}>
+                            <div style={{marginLeft:'10px', alignItems:'center',display:'flex',flexDirection:'row'}} onClick={()=>{handleShow(order.id)}}>
                                 <img src={close} style={{height:'24px'}}/>
-                                <span onClick={()=>{handleShow(order.id)}} style={{color:'#fff',fontFamily:'Raleway',marginLeft:'5px'}}>Cancel Order</span>    
+                                <span style={{color:'#F16A28',fontFamily:'Raleway',marginLeft:'5px'}}>Cancel Order</span>    
                             </div>
-                            <div style={{marginLeft:'10px', color:'#fff',fontFamily:'Raleway'}}>
+                            <div style={{marginRight:'10px', color:'#F16A28',fontFamily:'Raleway'}}>
                                 Total: ${order.BuyerPayment.toFixed(2)}
                             </div>
                         </div>

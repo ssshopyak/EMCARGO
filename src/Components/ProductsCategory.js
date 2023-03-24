@@ -112,12 +112,12 @@ const ProductsCategory = (props) => {
                 open={isOpenDrawer}
                 onClose={toggleDrawer}
                 direction='left'
-                style={{backgroundColor:'#201F1F'}}
+                style={{backgroundColor:'#F4F4F4'}}
             >
                 <div style={{marginTop:'25px', marginLeft:'10px',marginRight:'10px'}}> 
                     <div style={{display:'flex', justifyContent:'space-between', marginBottom:'5px'}}>
-                        <span style={{color:'#fff'}}>$ {currentPrice[0]}</span>
-                        <span style={{color:'#fff'}}>$ {currentPrice[1]}</span>
+                        <span style={{color:'#000'}}>$ {currentPrice[0]}</span>
+                        <span style={{color:'#000'}}>$ {currentPrice[1]}</span>
                     </div>
                     <RangeSlider
                         id="range-slider-yellow"

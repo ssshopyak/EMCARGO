@@ -46,7 +46,7 @@ export const Cart = ({ user }) => {
                                     <div className='inc' style={{color:'#F16A28'}} onClick={() => dispatch({ type: 'INC', id: cart.ProductID, cart })}>
                                         <Icon icon={ic_add} size={24} />
                                     </div>
-                                    <div className='quantity' style={{color:'#FFF', textAlign:'center'}}>{cart.qty}</div>
+                                    <div className='quantity' style={{color:'#000', textAlign:'center'}}>{cart.qty}</div>
                                     <div className='dec' style={{color:'#F16A28'}} onClick={() => dispatch({ type: 'DEC', id: cart.ProductID, cart })}>
                                         <Icon icon={ic_remove} size={24} />
                                     </div>
@@ -62,16 +62,16 @@ export const Cart = ({ user }) => {
                     }
                     {shoppingCart.length > 0 && 
                         <div className='cart-summary'>
-                            <div className='cart-summary-heading' style={{color:'#fff'}}>
+                            <div className='cart-summary-heading' style={{color:'#000',marginBottom:'5px'}}>
                                 Cart-Summary
                             </div>
                             <div className='cart-summary-price'>
-                                <span style={{color:'#fff'}}>Total Price</span>
-                                <span style={{color:'#fff'}}>${totalPrice.toFixed(2)}</span>
+                                <span style={{color:'#000'}}>Total Price</span>
+                                <span style={{color:'#000'}}>${totalPrice.toFixed(2)}</span>
                             </div>
                             <div className='cart-summary-price'>
-                                <span style={{color:'#fff'}}>Total Qty</span>
-                                <span style={{color:'#fff'}}>{totalQty}</span>
+                                <span style={{color:'#000'}}>Total Qty</span>
+                                <span style={{color:'#000'}}>{totalQty}</span>
                             </div>
                             <div style={{marginTop:'15px',display:'flex', justifyContent:'center'}}>
                             <Button 

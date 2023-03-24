@@ -4,6 +4,8 @@
     margin: 0;
     padding: 0;
     font-family: 'Raleway';
+    color:#000;
+    text-decoration: none;
 }
 
 .wrapper {
@@ -39,7 +41,7 @@ body {
     justify-content: space-around;
     align-items: center;
     padding: 10px;
-    background-color: #000;
+    background-color: #fff;
 }
 
 .navbox .links span{
@@ -52,6 +54,11 @@ body {
     color: #fff;
     font-family: 'Raleway';
     font-size: 18px;
+}
+
+.linkHover:hover .hoverMenu {
+    display: flex !important;
+    position: absolute !important;
 }
 
 .navbox .leftside {
@@ -108,7 +115,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #000;
+    background-color: #fff;
 }
 
 .navboxMobile .leftside {
@@ -183,12 +190,18 @@ body {
 /* shopnow */
 .shopnow {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-image: url('../src/images/background.jpg');
+    background: #fff;
     background-position: center;
     background-size: cover;
+}
+
+.shopnow .imageContainer {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .shopnow .textContainer .title {
@@ -196,7 +209,7 @@ body {
     margin-bottom: 24px;
     white-space: pre-line;
     font-size: 60px;
-    color: #fff;
+    color: #000;
     font-family: 'Raleway';
     line-height: 80px;
     font-weight: 600;
@@ -212,7 +225,7 @@ body {
     font-size: 16px;
     line-height: 28px;
     /* color: #AFAFBE; */
-    color: #fff;
+    color: #6B6B75;
 }
 
 
@@ -229,7 +242,13 @@ body {
 
 @media(max-width: 1200px) {
     .shopnow {
-        background-image: url('../src/images/backgroundMobile.jpg');
+        background-image: url('../src/images/trackPhoto.png');
+    }
+    .shopnow .textContainer .bodytext {
+        color: #fff;
+    }
+    .shopnow .textContainer .title {
+        color:#fff
     }
 }
 
@@ -280,7 +299,7 @@ body {
 /* products */
 
 .products-container {
-    background-color: #000;
+    background-color: #fff;
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -321,7 +340,7 @@ body {
 .products-container .product-card .product-name {
     display: block;
     width: 100%;
-    color: #FEFEFE;
+    color: #000;
     font-size: 16px;
     margin-top: 5px;
     font-family: 'Raleway';
@@ -333,12 +352,12 @@ body {
     margin-bottom: 5px;
     font-family: 'Inter';
     font-size: 16px;
-    color: #FEFEFE;
+    color: #000;
 }
 
 /* cart */
 .cart-container {
-    background-color: #010207;
+    background-color: #fff;
     min-height: 100vh;
     flex-direction: column;
     justify-content: center;
@@ -351,13 +370,12 @@ body {
 .cart-container .cart-card {
     width: 100%;
     border-radius: 12px;
-    border: 1px solid #f16a28;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     margin-bottom: 20px;
-    background-color: #201F1F;
+    background-color: #F4F4F4;
 }
 
 .cart-container .cart-card .changeCount {
@@ -372,7 +390,7 @@ body {
 
 
 .cart-container .cart-card .cart-img {
-    width: 15%;
+    width: 10%;
     padding: 10px;
 }
 
@@ -391,7 +409,7 @@ body {
 
 .cart-container .cart-card .cart-name,
 .cart-container .cart-card .cart-price {
-    color:#fff;
+    color:#000;
     width: 150px;
     margin-left: 20px;
 }
@@ -454,11 +472,10 @@ body {
 .cart-summary {
     display: flex;
     flex-direction: column;
-    padding: 50px;
-    border: 1px solid #F16A28;
+    padding: 18px;
     border-radius: 12px;
     width: 300px;
-    background-color: #201F1F;
+    background-color: #f4f4f4;
 }
 
 .cart-summary .cart-summary-heading {
@@ -538,7 +555,7 @@ body {
     width: 100%;
     margin-top: 89px;
     position: absolute;
-    background-color: #000;
+    background-color: #fff;
     z-index: 1;
     display: flex;
     flex-direction: row;
@@ -551,7 +568,7 @@ body {
     width: 100%;
     margin-top: 89px;
     position: absolute;
-    background-color: #000;
+    background-color: #fff;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -619,7 +636,7 @@ body {
 /* footer */
 
 .footer {
-    background-color: #000;
+    background-color: #fff;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -661,10 +678,10 @@ body {
     display: flex;
     flex-direction: column;
     border-radius: 12px;
-    background-color: #000;
+    background-color: #F4F4F4;
     margin-bottom: 10px;
     margin-top: 10px;
-    border: 1px solid #f16a28
+    
 }
 
 .ordersContainer:first-child {
@@ -672,7 +689,7 @@ body {
 }
 
 .dateContainer {
-    background-color: #201F1F;
+    background-color: #F4F4F4;
     width: 50%;
     margin: 5px;
     border-radius: 12px;
@@ -685,7 +702,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     width: 95%;
-    background-color: #201F1F;
+    background-color: #f4f4f4;
     margin: 15px;
     border-radius: 12px;
 }
@@ -700,13 +717,12 @@ body {
 }
 
 .customOverlay {
-    background-color: #201F1F;
+    background-color: #f4f4f4;
     
 }
 
 .customModal {
-    border: 1px solid #F16A28;
-    background: #201F1F !important;
+    background: #f4f4f4 !important;
     font-family: 'Raleway';
     border-radius: 12px;
     display: flex;
@@ -716,5 +732,14 @@ body {
     margin-top:5px;
     margin-bottom:5px;
     padding-left: 5px;
-    padding-right: 5px;
+    padding-right: 10px;
+    border-radius: 4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #F16A28;
+    font-size: 18px;
+}
+
+.form-control:active {
+    border: 1px solid #F16A28;
 }

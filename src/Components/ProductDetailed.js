@@ -32,21 +32,21 @@ const ProductDetails = (props) => {
         </div>
         <div className='halfScreen'>
           <div className='bodyText'>
-            <h2 style={{ fontSize: '24px', textTransform: 'uppercase' }}>{myProp.ProductCategory} <span style={{ color: '#CEC9C7' }}>{myProp.ProductName}</span></h2>
-            <span style={{ color: '#F16A28' }}>{myProp.ProductModel}<span style={{ color: '#fff' }}>{' / '}</span>{myProp.ProductSubCategory}</span>
+            <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom:'10px' }}>{myProp.ProductCategory} <span style={{ color: '#CEC9C7' }}>{myProp.ProductName}</span></h2>
+            <span style={{ color: '#F16A28' }}>{myProp.ProductModel}<span style={{ color: '#000' }}>{' / '}</span>{myProp.ProductSubCategory}</span>
             {myProp.ProductDescription.length > 0 && <p>Description: <span style={{ color: '#CEC9C7' }}>{myProp.ProductDescription}</span></p>}
             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px', alignItems: 'center', textAlign: 'center' }}>
               { myProp.ProductSide ?
                 <div style={{display:'flex', alignItems:'center', marginRight:'20px'}}>
-                  <label style={{color:'#fff',fontFamily:'Raleway', marginRight:'10px'}}>Side</label>
-                  <select value={side} onChange={(event)=>{setSide(event.target.value)}} className='form-control' style={{color:'#fff', backgroundColor:'#000', border:'1px solid #F16A28'}}>
+                  <label style={{color:'#000',fontFamily:'Raleway', marginRight:'10px'}}>Side</label>
+                  <select value={side} onChange={(event)=>{setSide(event.target.value)}} className='form-control' style={{color:'#000', backgroundColor:'#fff', border:'1px solid #F16A28'}}>
                     <option value={'Set Both Sides'}>Set Both Sides</option>
                     <option value={'Driver side'}>Driver side</option>
                     <option value={'Passenger side'}>Passenger side</option>
                   </select>
                 </div> : null
               }
-              <p className='priceText' style={{ fontFamily: 'Inter', margin: '0', fontSize: '24px', marginRight: '24px' }}>{sideProduct.ProductPrice} $</p>
+              <span className='priceText' style={{ fontFamily: 'Inter', margin: '0', fontSize: '24px', marginRight: '24px', display:'flex', justifyContent:'row' }}>${sideProduct.ProductPrice}</span>
               <Button title={'Add to Cart'} onClick={() => { addToCart(sideProduct) } } color={'#fff'} backgroundColor={'#F16A28'} padding={'5px 20px 5px 20px'} border={'1px solid #F16A28'} />
             </div>
           </div>

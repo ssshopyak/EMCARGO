@@ -5,7 +5,7 @@ export const Button = ({ onClick,title, color, backgroundColor, padding, fontSiz
         padding: padding,  // top, right, bottom, left
         color: color,
         backgroundColor: backgroundColor,
-        borderRadius: "4px",
+        borderRadius: "6px",
         fontSize: fontSize,
         fontWeight: "600",
         cursor: "pointer",

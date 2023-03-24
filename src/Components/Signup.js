@@ -51,7 +51,7 @@ export const Signup = (props) => {
         <div className='loginContainer'>
             <div style={{backgroundColor:'#fff', padding:'25px',borderRadius:'25px', display:'flex', flexDirection:'column'}}>
                 <h2 style={{alignSelf:'center'}}>Sign up</h2>
-                <form autoComplete="off" className='form-group' onSubmit={signup}>
+                <form autoComplete="off" className='form-group' style={{display:'flex',flexDirection:'column'}}onSubmit={signup}>
                     <label htmlFor="name">Name</label>
                     <input type="text" className='form-control' required
                         onChange={(e) => setName(e.target.value)} value={name} />
@@ -65,8 +65,8 @@ export const Signup = (props) => {
                         <Button type='submit' title='Submit' color={'#fff'} backgroundColor={'#f16a28'} padding={'5px 20px 5px 20px'} />
                     </div>
                 </form>
-                <span>Already have an account? Login
-                    <Link to="login"> Here</Link>
+                <span style={{marginTop:'10px'}}>Already have an account? Login
+                    <Link to="login" style={{color:'#F16A28', fontWeight: "bold"}}> Here</Link>
                 </span>
             </div>
         </div>

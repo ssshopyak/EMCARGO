@@ -61,7 +61,7 @@ const App = () => {
 
     if (isLoading) {
         return(
-            <div style={{backgroundColor:'#000',height:'100vh', width:'100vw', display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <div style={{backgroundColor:'#fff',height:'100vh', width:'100vw', display:'flex', justifyContent:'center', alignItems:'center'}}>
                 <Spinner color="#F16A28" size={32} speed={1} animating={true} />
             </div>
         )

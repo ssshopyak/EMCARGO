@@ -8,7 +8,7 @@ export const Products = ({category}) => {
     const sortedArray = products.sort((a, b) => parseFloat(b.ProductID) - parseFloat(a.ProductID)).slice(0,4)
     return (
         <>
-            <div className='products-container' style={{backgroundColor:'#201F1F'}}>
+            <div className='products-container' style={{backgroundColor:'#F4F4F4'}}>
                 {products.length === 0 && <div>slow internet...no products to display</div>}
                 {sortedArray.map(product => {
                     if (product.ProductCategory === category || category === null) {

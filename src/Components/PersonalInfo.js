@@ -238,7 +238,7 @@ export const PersonalInfo = ({title}) => {
                             : 
                             (
                                 <div style={{display:'flex', flexDirection:'column', margin:'10px'}}>
-                                    <div>                    
+                                    <div style={{display:'flex',flexDirection:'column'}}>                    
                                         <label style={{color:'#000',fontFamily:'Raleway'}}>Country/Region</label>
                                         <input
                                             type="text" 
@@ -249,8 +249,8 @@ export const PersonalInfo = ({title}) => {
                                             onChange={(e) => setCountry(e.target.value)}
                                         />
                                     </div>
-                                    <div>
-                                        <label style={{color:'#000',fontFamily:'Raleway'}}>State / County</label>
+                                    <div style={{display:'flex',flexDirection:'column', marginTop:'10px'}}>
+                                        <label style={{color:'#000',fontFamily:'Raleway'}}>State</label>
                                         <select value={state} onChange={(event)=>{setState(event.target.value)}} className='form-control'>
                                             {states.map((state) => {
                                                 return (
@@ -260,7 +260,7 @@ export const PersonalInfo = ({title}) => {
                                         </select> 
                                     </div>
                                     <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', marginTop:'10px'}}>
-                                        <div style={{width:'48%'}}>
+                                        <div style={{width:'48%',display:'flex',flexDirection:'column'}}>
                                             <label style={{color:'#000',fontFamily:'Raleway'}}>Street Address</label>
                                             <input
                                                 type="text" 
@@ -271,7 +271,7 @@ export const PersonalInfo = ({title}) => {
                                                 onChange={(e) => setStreetAddress(e.target.value)}
                                             />
                                         </div>
-                                        <div style={{width:'48%'}}>
+                                        <div style={{width:'48%',display:'flex',flexDirection:'column'}}>
                                            <label style={{color:'#000',fontFamily:'Raleway'}}>Zipcode</label>
                                             <input
                                                 type="text" 
@@ -283,7 +283,7 @@ export const PersonalInfo = ({title}) => {
                                         </div>                    
                                     </div>
                                     <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', marginTop:'10px'}}>
-                                    <div style={{width:'48%'}}>
+                                    <div style={{width:'48%',display:'flex',flexDirection:'column'}}>
                                             <label style={{color:'#000',fontFamily:'Raleway'}}>City</label>
                                             <input
                                                 type="text" 
@@ -293,7 +293,7 @@ export const PersonalInfo = ({title}) => {
                                                 onChange={(e) => setCity(e.target.value)}
                                             />
                                     </div>
-                                    <div style={{width:'48%'}}>
+                                    <div style={{width:'48%',display:'flex',flexDirection:'column'}}>
                                         <label style={{color:'#000',fontFamily:'Raleway'}}>Apartament, suite, unit</label>                    
                                         <input
                                             type="text" 
@@ -380,9 +380,9 @@ export const PersonalInfo = ({title}) => {
     return (
         <>
             <div className='loginContainer'>
-                <div style={{backgroundColor:'#fff', padding:'25px',borderRadius:'25px', display:'flex', flexDirection:'column', marginTop:"100px", marginBottom:'10px'}}>
+                <div style={{backgroundColor:'#f4f4f4', paddingLeft:'25px', paddingBottom:'25px', paddingRight:'25px',borderRadius:'25px', display:'flex', flexDirection:'column', marginTop:"100px", marginBottom:'10px'}}>
                 <h2 style={{marginTop:'10px',textAlign:"center",marginBottom:'10px', color:'#000',fontFamily:'Raleway'}}>{title}</h2>
-                <form autoComplete="off" className='form-group' onSubmit={(e) => {onSubmit(e)}}>
+                <form autoComplete="off" className='form-group' style={{display:'flex', flexDirection:'column'}} onSubmit={(e) => {onSubmit(e)}}>
                     <label style={{color:'#000',fontFamily:'Raleway'}}>Nickname</label>
                     <input 
                         type="text"

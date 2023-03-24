@@ -14,6 +14,8 @@ import { Button } from './Button'
 import useScreenType from "react-screentype-hook";
 import { db } from '../Config/Config'
 import { collection, getDocs, } from "firebase/firestore";
+import Drawer from 'react-modern-drawer'
+import 'react-modern-drawer/dist/index.css'
 
 export const Navbar = ({ user }) => {
     const [data, setData] = useState([])
@@ -65,7 +67,11 @@ export const Navbar = ({ user }) => {
             setIsMenuOpen(true)
         }
     }
-    
+        
+    const toggleDrawer = () => {
+        setIsMenuOpenStyle((prevState) => !prevState)
+    }
+
     useEffect(()=>{
         console.log(search)
         const querySnapshot = getDocs(collection(db, 'Categories')).then((querySnapsot) => {
@@ -93,61 +99,64 @@ export const Navbar = ({ user }) => {
 
     if ( isMobile ) {
         return (
-            <div className='navboxMobile'>
+            <><div className='navboxMobile'>
                 <div className='leftside'>
                     <Link to="/"><img src={logo} alt="" /></Link>
                 </div>
-                <div className='rightside'>
-                    <img src={menu} alt="" onClick={handleOpenMenu}/>
+                <div className='rightside' style={{ marginRight: '20px' }}>
+                    <img src={menu} alt="" onClick={handleOpenMenu} />
                 </div>
-                { isMenuOpen &&
-                <div className='navDropDownMenu' style={isMenuOpenStyle ? mountedStyle : unmountedStyle}>
-                    <div className='links' style={{display:'flex', flexDirection:'column'}}>
+            </div><Drawer
+                open={isMenuOpenStyle}
+                onClose={toggleDrawer}
+                direction='right'
+                style={{ backgroundColor: '#F4F4F4',display:'flex',flexDirection:'column',alignItems:'center' }}
+            >
+                    <div className='links' style={{ display: 'flex', flexDirection: 'column', marginTop:'10px' }}>
                         {categoryList[0]?.map((category) => {
                             return (
                                 <span
                                     key={category}>
                                     <div>
                                         <Link
-                                            onClick={handleOpenMenu}  
+                                            onClick={handleOpenMenu}
                                             to={{
-                                                pathname:'/category',
-                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null, KeyWord:null }
+                                                pathname: '/category',
+                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null, KeyWord: null }
                                             }}
-                                            className='navlink' 
-                                            style={{color: '#fff'}}>
+                                            className='navlink'
+                                            style={{ color: '#000' }}>
                                             {category}
                                         </Link>
-                                        <img 
+                                        <img
                                             src={down}
                                             alt='v'
                                             style={{
                                                 transition: "transform .5s",
-                                                width:'18px',
-                                                marginLeft:'5px',
+                                                width: '18px',
+                                                marginLeft: '5px',
                                                 transform: isSelectedCategoryOpen & selectedCategory === category ? "rotate(0deg)" : "rotate(90deg)"
                                             }}
-                                            onClick={()=>{
+                                            onClick={() => {
                                                 setIsSelectedCategoryOpen(!isSelectedCategoryOpen)
                                                 setSelectedCategory(category)
-                                            }}
-                                        />
+                                            } } />
                                     </div>
-                                    { selectedCategory === category & isSelectedCategoryOpen ? (
+                                    {selectedCategory === category & isSelectedCategoryOpen ? (
                                         <div
-                                            style={{backgroundColor:'#000', display:'flex', flexDirection:'column'}}>
+                                            style={{ backgroundColor: '#f4f4f4', display: 'flex', flexDirection: 'column' }}>
                                             {data.map((menu) => {
-                                                return(
+                                                return (
                                                     menu.map((element) => {
-                                                        if ( element.id === selectedCategory) {
+                                                        if (element.id === selectedCategory) {
                                                             return (
                                                                 <>
-                                                                    <span key={element.uid} style={{ color: "#fff",}}>
+                                                                    <span key={element.uid} style={{ color: "#000", }}>
                                                                         <Link
-                                                                            style={{ color: "#fff"}}
+                                                                            style={{ color: "#000" }}
                                                                             to={{
-                                                                                pathname:'/category',
-                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid, KeyWord:null }
+                                                                                pathname: '/category',
+                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid, KeyWord: null }
                                                                             }}
                                                                         >
                                                                             {element.uid}
@@ -168,15 +177,15 @@ export const Navbar = ({ user }) => {
                                                                                 } } />}
                                                                     </span>
                                                                     {element.data.length > 1 & isSubSelectedCategoryOpen & subSelectedCategory === element.uid ? (
-                                                                        <div style={{display:'flex', flexDirection:'column'}}>
+                                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                                             {element.data.map((subCategory) => {
-                                                                                return(
-                                                                                    <span style={{ color: "#fff" }} key={subCategory}>
+                                                                                return (
+                                                                                    <span style={{ color: "#000" }} key={subCategory}>
                                                                                         <Link
-                                                                                            style={{ color: "#F16A28" }} 
+                                                                                            style={{ color: "#F16A28" }}
                                                                                             to={{
-                                                                                                pathname:'/category',
-                                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid, KeyWord:null }
+                                                                                                pathname: '/category',
+                                                                                                state: { Category: category === 'All Products' ? null : category, SubCategory: subCategory, Model: element.uid, KeyWord: null }
                                                                                             }}
                                                                                         >
                                                                                             {subCategory}
@@ -185,76 +194,109 @@ export const Navbar = ({ user }) => {
                                                                                 )
                                                                             })}
                                                                         </div>
-                                                                        ) : null
-                                                                    }
+                                                                    ) : null}
                                                                 </>
                                                             )
-                                                        } 
+                                                        }
                                                     })
                                                 )
                                             })}
                                         </div>
-                                        ) : null
-                                    }
+                                    ) : null}
                                 </span>
                             )
                         })}
-                    </div>   
-                    {!user ? 
-                    (
-                        <div style={{display:'flex', flexDirection:'row', justifyContent:"space-around", width:'60%', marginTop:'15px'}}>
-                            <Button 
-                                onClick={() => { history.push('/login') }}
-                                title={'Sign in'}
-                                color={'#fff'}
-                                backgroundColor={'#F16A28'}
-                                padding={'5px 20px 5px 20px'}
-                                border={'1px solid #F16A28'}/>
-                            <Button 
-                                onClick={() => { history.push('/signup') }} 
-                                title={'Sign up'} 
-                                color={'#F16A28'} 
-                                backgroundColor={'rgba(0, 0, 0, 0.0)'} 
-                                padding={'5px 20px 5px 20px'} 
-                                border={'1px solid #F16A28'}/>
-                        </div>
-                    )
-                    :
-                    (
-                        <div style={{display:'flex', justifyContent:'space-between', width:'60%',alignItems:'center'}}>
-                            <span><Link to="/" className='navlink' style={{color: '#fff'}}>{user}</Link></span>
-                            <div>
-                                <span style={{margin:'0px'}}><Link to="cartproducts" className='navlink' style={{color: '#fff'}}><Icon icon={cart} /></Link></span>
-                                <span style={{position:'absolute', borderRadius:'2px',marginTop:'-10px'}}>{totalQty}</span>
+                    </div>
+                    {isOpenedSearch ?
+                            <div 
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    alignItems: "center"
+                                }}>
+                                <input
+                                    style={{
+                                        display: "block",
+                                        width: "100%",
+                                        padding: "0.375rem 0.75rem",
+                                        fontSize: "1rem",
+                                        fontWeight: "400",
+                                        lineHeight: "1.5",
+                                        color: "#212529",
+                                        backgroundColor: "#fff",
+                                        backgroundClip: "padding-box",
+                                        border: "1px solid #ced4da",
+                                        appearance: "none",
+                                        borderRadius: "0.375rem",
+                                        animation: isOpenedSearch ? "fade-out 5s forwards" : "fade-in 5s forwards"
+                                    }}
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)} >
+                                    </input>
+                                    <Link
+                                        to={{
+                                            pathname:'/category',
+                                            state: { Category: null, SubCategory: null, Model: null, KeyWord:search }
+                                        }}
+                                        style={{ position: 'absolute', marginRight: '10px', color:'#F16A28' }}
+                                    >
+                                        <Icon icon={ic_search} size={22} onClick={() => {console.log(search)}} />
+                                    </Link>
+                                    
+                            </div> : null
+                        }
+                    {!user ?
+                        (
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-around", width: '100%', marginTop: '15px' }}>
+                                <Button
+                                    onClick={() => { history.push('/login') } }
+                                    title={'Sign in'}
+                                    color={'#fff'}
+                                    backgroundColor={'#F16A28'}
+                                    padding={'5px 20px 5px 20px'}
+                                    border={'1px solid #F16A28'} />
+                                <Button
+                                    onClick={() => { history.push('/signup') } }
+                                    title={'Sign up'}
+                                    color={'#F16A28'}
+                                    backgroundColor={'rgba(0, 0, 0, 0.0)'}
+                                    padding={'5px 20px 5px 20px'}
+                                    border={'1px solid #F16A28'} />
                             </div>
-                            <Button 
-                                onClick={handleLogout}
-                                title={'Logout'}
-                                color={'#fff'} 
-                                backgroundColor={'#F16A28'} 
-                                padding={'5px 20px 5px 20px'} 
-                                border={'1px solid #F16A28'}
-                            />
-                        </div>
-                    )   
-                    }
-                </div>
-                }
-        </div>
+                        )
+                        :
+                        (
+                            
+                            <div style={{ display: 'flex', justifyContent: 'space-between', width: '90%', alignItems: 'center', marginTop:'10px' }}>
+                                <span><Link to="/" className='navlink' style={{ color: '#000' }}>{user}</Link></span>
+                                <div>
+                                    <Icon icon={ic_search} size={22} style={{color:'#fff',marginRight:'10px'}} onClick={()=>{setIsOpenedSearch(!isOpenedSearch)}}/>
+                                    <span style={{ margin: '0px' }}><Link to="cartproducts" className='navlink' style={{ color: '#fff' }}><Icon icon={cart} /></Link></span>
+                                    <span style={{ position: 'absolute', borderRadius: '2px', marginTop: '-10px' }}>{totalQty}</span>
+                                </div>
+                                <Button
+                                    onClick={handleLogout}
+                                    title={'Logout'}
+                                    color={'#fff'}
+                                    backgroundColor={'#F16A28'}
+                                    padding={'5px 20px 5px 20px'}
+                                    border={'1px solid #F16A28'} />
+                            </div>
+                        )}
+                </Drawer></>
         )
     }
     return (
         <div className='navbox'>
             <div className='leftside'>
                 <Link to="/"><img src={logo} alt="" /></Link>
-                <span onClick={()=>{
-                    console.log(categoryList)
-                }}>X</span>
             </div>
             <div className='links' style={{display:'flex', flexDirection:'row'}}>
                 {categoryList[0]?.map((category) => {
                     return (
                         <span
+                            className='linkHover'
+                            onMouseEnter={() => setSelectedCategory(category)}
                             key={category}>
                             <div style={{display:'flex',alignItems:'center'}}>
                                 <Link
@@ -264,7 +306,7 @@ export const Navbar = ({ user }) => {
                                         state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: null, KeyWord:null }
                                     }}
                                     className='navlink' 
-                                    style={{color: '#fff',fontSize:'24px',textDecoration:'none'}}>
+                                    style={{color: '#000',fontSize:'24px',textDecoration:'none'}}>
                                     {category}
                                 </Link>
                                 <img 
@@ -274,7 +316,7 @@ export const Navbar = ({ user }) => {
                                         transition: "transform .5s",
                                         width:'24px',
                                         marginLeft:'5px',
-                                        transform: isSelectedCategoryOpen & selectedCategory === category ? "rotate(0deg)" : "rotate(90deg)"
+                                        transform: isSelectedCategoryOpen & selectedCategory === category ? "rotate(0deg)" : "rotate(0deg)"
                                     }}
                                     onClick={()=>{
                                         setIsSelectedCategoryOpen(!isSelectedCategoryOpen)
@@ -282,25 +324,28 @@ export const Navbar = ({ user }) => {
                                     }}
                                 />
                             </div>
-                            { selectedCategory === category & isSelectedCategoryOpen ? (
+                            { selectedCategory === category ? (
                                 <div
-                                    style={{backgroundColor:'#000', position:'absolute', display:'flex', flexDirection:'column'}}>
+                                    className='hoverMenu'
+                                    style={{backgroundColor:'#fff',  display:'none', position:'relative', flexDirection:'column'}}>
+                                    
                                     {data.map((menu) => {
                                         return(
                                             menu.map((element) => {
                                                 if ( element.id === selectedCategory) {
                                                     return (
                                                         <>
-                                                            <span key={element.uid} style={{ color: "#fff" }}>
+                                                            <span key={element.uid} style={{ color: "#000" }} onMouseEnter={() => setSubSelectedCategory(element.uid)}>
                                                                 <Link
                                                                     to={{
                                                                         pathname:'/category',
                                                                         state: { Category: category === 'All Products' ? null : category, SubCategory: null, Model: element.uid, KeyWord:null }
                                                                     }}
+                                                                    style={{color:'#000'}}
                                                                 >
                                                                     {element.uid}
                                                                 </Link>
-                                                                {element.data.length > 1 &&
+                                                                {element.data.length > 1 ?
                                                                     <img
                                                                         src={down}
                                                                         alt='v'
@@ -308,14 +353,14 @@ export const Navbar = ({ user }) => {
                                                                             transition: "transform .5s",
                                                                             width: '18px',
                                                                             marginLeft: '5px',
-                                                                            transform: isSubSelectedCategoryOpen & subSelectedCategory === element.uid ? "rotate(0deg)" : "rotate(90deg)"
+                                                                            transform: isSubSelectedCategoryOpen & subSelectedCategory === element.uid ? "rotate(0deg)" : "rotate(0deg)"
                                                                         }}
                                                                         onClick={() => {
                                                                             setIsSubSelectedCategoryOpen(!isSubSelectedCategoryOpen)
                                                                             setSubSelectedCategory(element.uid)
-                                                                        } } />}
+                                                                        }}/> : null}
                                                             </span>
-                                                            {element.data.length > 1 & isSubSelectedCategoryOpen & subSelectedCategory === element.uid &&
+                                                            {element.data.length > 1 & subSelectedCategory === element.uid ?
                                                                 <div style={{display:'flex', flexDirection:'column'}}>
                                                                     {element.data.map((subCategory) => {
                                                                         return(
@@ -332,11 +377,13 @@ export const Navbar = ({ user }) => {
                                                                             </span>
                                                                         )
                                                                     })}
-                                                                </div>
+                                                                </div> : null
                                                             }
                                                         </>
                                                     )
-                                                } 
+                                                } else {
+                                                    return null
+                                                }
                                             })
                                         )
                                     })}
@@ -354,11 +401,11 @@ export const Navbar = ({ user }) => {
                 </div>}
             {user && 
                 <div className='rightside'>
-                    <span><Link to="/" className='navlink' style={{fontSize:18}}>{user}</Link></span>
+                    <span><Link to="/" className='navlink' style={{fontSize:18, color:'#000'}}>{user}</Link></span>
                     <span style={{marginLeft:'10px'}}>
                         <Icon icon={ic_search} size={22} style={{color:'#fff',marginRight:'10px'}} onClick={()=>{setIsOpenedSearch(!isOpenedSearch)}}/>
                         <Link to="cartproducts" className='navlink'><Icon icon={cart} /></Link>
-                        <span style={{position:'absolute', color:'#fff'}}>{totalQty}</span>
+                        <span style={{position:'absolute', color:'#000'}}>{totalQty}</span>
                     </span>   
                     <Button 
                         onClick={handleLogout}
