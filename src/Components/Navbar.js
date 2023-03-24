@@ -327,15 +327,16 @@ export const Navbar = ({ user }) => {
                             { selectedCategory === category ? (
                                 <div
                                     className='hoverMenu'
-                                    style={{backgroundColor:'#fff',  display:'none', position:'relative', flexDirection:'column'}}>
+                                    style={{backgroundColor:'#fff',  display:'none', position:'relative', flexDirection:'column', border:'1px solid #f16a28', borderTopWidth:'0px', borderBottomLeftRadius:'12px', borderBottomRightRadius:'12px',padding:'10px'}}>
                                     
                                     {data.map((menu) => {
                                         return(
-                                            menu.map((element) => {
+                                            menu.map((element, index) => {
+                                                console.log(menu.length - 1 + '/' + index)
                                                 if ( element.id === selectedCategory) {
                                                     return (
                                                         <>
-                                                            <span key={element.uid} style={{ color: "#000" }} onMouseEnter={() => setSubSelectedCategory(element.uid)}>
+                                                            <span key={element.uid} style={{ color: "#000", marginTop:'10px', marginBottom:'10px' }} onMouseEnter={() => setSubSelectedCategory(element.uid)}>
                                                                 <Link
                                                                     to={{
                                                                         pathname:'/category',
@@ -360,6 +361,7 @@ export const Navbar = ({ user }) => {
                                                                             setSubSelectedCategory(element.uid)
                                                                         }}/> : null}
                                                             </span>
+                                                            {menu.length - 1 === index ? null : <span style={{width:'100%', height:'1px', backgroundColor:'#F16A28'}}></span>}
                                                             {element.data.length > 1 & subSelectedCategory === element.uid ?
                                                                 <div style={{display:'flex', flexDirection:'column'}}>
                                                                     {element.data.map((subCategory) => {
