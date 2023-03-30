@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/emcargo/static/css/main.2e4a14c7.chunk.css",
-    "main.js": "/emcargo/static/js/main.f057c321.chunk.js",
-    "main.js.map": "/emcargo/static/js/main.f057c321.chunk.js.map",
+    "main.css": "/emcargo/static/css/main.b7b12808.chunk.css",
+    "main.js": "/emcargo/static/js/main.fab8db74.chunk.js",
+    "main.js.map": "/emcargo/static/js/main.fab8db74.chunk.js.map",
     "runtime-main.js": "/emcargo/static/js/runtime-main.febdc795.js",
     "runtime-main.js.map": "/emcargo/static/js/runtime-main.febdc795.js.map",
     "static/css/2.e21319c8.chunk.css": "/emcargo/static/css/2.e21319c8.chunk.css",
-    "static/js/2.0177c2fd.chunk.js": "/emcargo/static/js/2.0177c2fd.chunk.js",
-    "static/js/2.0177c2fd.chunk.js.map": "/emcargo/static/js/2.0177c2fd.chunk.js.map",
+    "static/js/2.c67096af.chunk.js": "/emcargo/static/js/2.c67096af.chunk.js",
+    "static/js/2.c67096af.chunk.js.map": "/emcargo/static/js/2.c67096af.chunk.js.map",
     "index.html": "/emcargo/index.html",
-    "precache-manifest.0b4626b52d29b97901f2c2f7df51dd71.js": "/emcargo/precache-manifest.0b4626b52d29b97901f2c2f7df51dd71.js",
+    "precache-manifest.dae5fd1203137a0f2c4a9a5d93f91125.js": "/emcargo/precache-manifest.dae5fd1203137a0f2c4a9a5d93f91125.js",
     "service-worker.js": "/emcargo/service-worker.js",
     "static/css/2.e21319c8.chunk.css.map": "/emcargo/static/css/2.e21319c8.chunk.css.map",
-    "static/css/main.2e4a14c7.chunk.css.map": "/emcargo/static/css/main.2e4a14c7.chunk.css.map",
-    "static/js/2.0177c2fd.chunk.js.LICENSE.txt": "/emcargo/static/js/2.0177c2fd.chunk.js.LICENSE.txt",
-    "static/js/main.f057c321.chunk.js.LICENSE.txt": "/emcargo/static/js/main.f057c321.chunk.js.LICENSE.txt",
+    "static/css/main.b7b12808.chunk.css.map": "/emcargo/static/css/main.b7b12808.chunk.css.map",
+    "static/js/2.c67096af.chunk.js.LICENSE.txt": "/emcargo/static/js/2.c67096af.chunk.js.LICENSE.txt",
+    "static/js/main.fab8db74.chunk.js.LICENSE.txt": "/emcargo/static/js/main.fab8db74.chunk.js.LICENSE.txt",
     "static/media/index.css": "/emcargo/static/media/backgroundMobile.35bd3b4b.jpg",
     "static/media/delivery.png": "/emcargo/static/media/delivery.77b70638.png",
     "static/media/ecommerce.svg": "/emcargo/static/media/ecommerce.7ad9601e.svg",
@@ -29,8 +29,8 @@
   "entrypoints": [
     "static/js/runtime-main.febdc795.js",
     "static/css/2.e21319c8.chunk.css",
-    "static/js/2.0177c2fd.chunk.js",
-    "static/css/main.2e4a14c7.chunk.css",
-    "static/js/main.f057c321.chunk.js"
+    "static/js/2.c67096af.chunk.js",
+    "static/css/main.b7b12808.chunk.css",
+    "static/js/main.fab8db74.chunk.js"
   ]
 }
