@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6d6a249303c10ccbea8b96ef5cd34dbb",
+    "revision": "b4b3775d52eccc01778d8020feda2f61",
     "url": "/emcargo/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/emcargo/static/css/2.e21319c8.chunk.css"
   },
   {
-    "revision": "ba093a16a7a234854901",
+    "revision": "8bb7b49feb06d86230f3",
     "url": "/emcargo/static/css/main.b7b12808.chunk.css"
   },
   {
@@ -20,12 +20,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/emcargo/static/js/2.c67096af.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ba093a16a7a234854901",
-    "url": "/emcargo/static/js/main.fab8db74.chunk.js"
+    "revision": "8bb7b49feb06d86230f3",
+    "url": "/emcargo/static/js/main.e1f739e0.chunk.js"
   },
   {
     "revision": "4e0e34f265fae8f33b01b27ae29d9d6f",
-    "url": "/emcargo/static/js/main.fab8db74.chunk.js.LICENSE.txt"
+    "url": "/emcargo/static/js/main.e1f739e0.chunk.js.LICENSE.txt"
   },
   {
     "revision": "a005f5f210ed2248bdb4",
